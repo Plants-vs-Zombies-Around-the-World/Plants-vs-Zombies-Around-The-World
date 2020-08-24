@@ -99,6 +99,7 @@ func _on_ExitProfileMakerButton_pressed():
 	profilePressable = true
 
 func _on_MakeProfileButton_pressed():
+	# this is for when a profile has been created
 	playerName = $NewProfileMaker/Control/ProfileMakerInput.get_text()
 	if playerName.length() > 0:
 		# read save file
@@ -127,4 +128,4 @@ func _on_MakeProfileButton_pressed():
 		profilePressable = true
 		$NewProfileMaker.hide()
 	else:
-		print("too small")
+		$NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"

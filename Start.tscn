@@ -330,6 +330,7 @@ __meta__ = {
 margin_top = 1.0
 margin_right = 192.0
 margin_bottom = 21.0
+toggle_mode = true
 text = "Player One"
 
 [node name="Profile1" type="VBoxContainer" parent="ProfilePanel/Control/ProfileList"]
@@ -346,6 +347,7 @@ __meta__ = {
 margin_top = 1.0
 margin_right = 192.0
 margin_bottom = 21.0
+toggle_mode = true
 text = "Player Two"
 
 [node name="Profile2" type="VBoxContainer" parent="ProfilePanel/Control/ProfileList"]
@@ -362,6 +364,7 @@ __meta__ = {
 margin_top = 1.0
 margin_right = 192.0
 margin_bottom = 21.0
+toggle_mode = true
 text = "Player Three"
 
 [node name="Profile3" type="VBoxContainer" parent="ProfilePanel/Control/ProfileList"]
@@ -378,6 +381,7 @@ __meta__ = {
 margin_top = 1.0
 margin_right = 192.0
 margin_bottom = 21.0
+toggle_mode = true
 text = "Player Four"
 
 [node name="Profile4" type="VBoxContainer" parent="ProfilePanel/Control/ProfileList"]
@@ -394,6 +398,7 @@ __meta__ = {
 margin_top = 1.0
 margin_right = 192.0
 margin_bottom = 21.0
+toggle_mode = true
 text = "Player Five"
 
 [node name="ProfileSwitch" type="VBoxContainer" parent="ProfilePanel/Control"]
@@ -408,6 +413,7 @@ __meta__ = {
 [node name="Button" type="Button" parent="ProfilePanel/Control/ProfileSwitch"]
 margin_right = 98.0
 margin_bottom = 20.0
+disabled = true
 text = "Switch Profile"
 
 [node name="ProfileCreate" type="VBoxContainer" parent="ProfilePanel/Control"]
@@ -424,6 +430,7 @@ __meta__ = {
 margin_top = 2.0
 margin_right = 108.0
 margin_bottom = 22.0
+disabled = true
 text = "Create Profile"
 
 [node name="ProfileDelete" type="VBoxContainer" parent="ProfilePanel/Control"]
@@ -440,13 +447,14 @@ __meta__ = {
 margin_top = 2.0
 margin_right = 108.0
 margin_bottom = 22.0
+disabled = true
 text = "Delete Profile"
 
 [node name="NewProfileMaker" type="PopupPanel" parent="."]
 margin_left = 384.0
 margin_top = 144.0
 margin_right = 672.0
-margin_bottom = 288.0
+margin_bottom = 312.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -455,7 +463,7 @@ __meta__ = {
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 284.0
-margin_bottom = 140.0
+margin_bottom = 164.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -495,11 +503,29 @@ text = "Enter Your Name"
 align = 1
 valign = 1
 
+[node name="ProfileMakerWarning" type="VBoxContainer" parent="NewProfileMaker/Control"]
+margin_left = 20.0
+margin_top = 33.0
+margin_right = 260.0
+margin_bottom = 57.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="NewProfileMaker/Control/ProfileMakerWarning"]
+margin_top = 5.0
+margin_right = 240.0
+margin_bottom = 19.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+align = 1
+valign = 1
+
 [node name="ProfileMakerInput" type="LineEdit" parent="NewProfileMaker/Control"]
 margin_left = 20.0
-margin_top = 44.0
+margin_top = 56.0
 margin_right = 260.0
-margin_bottom = 80.0
+margin_bottom = 92.0
 align = 1
 max_length = 20
 __meta__ = {
@@ -508,9 +534,9 @@ __meta__ = {
 
 [node name="MakeProfile" type="Button" parent="NewProfileMaker/Control"]
 margin_left = 92.0
-margin_top = 92.0
+margin_top = 116.0
 margin_right = 190.0
-margin_bottom = 116.0
+margin_bottom = 140.0
 text = "Create Profile"
 __meta__ = {
 "_edit_use_anchors_": false
