@@ -255,6 +255,7 @@ margin_bottom = 22.0
 text = "No"
 
 [node name="ProfilePanel" type="PopupPanel" parent="."]
+visible = true
 margin_left = 336.0
 margin_top = 144.0
 margin_right = 719.0

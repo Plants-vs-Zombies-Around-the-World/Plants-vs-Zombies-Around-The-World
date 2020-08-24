@@ -27,11 +27,16 @@ func _ready():
 		$NewProfileMaker.show()
 		$NewProfileMaker/Control/ProfileMakerExit.hide()
 	else:
+		# when a save file is filled up, collect stuff about the last chosen profile
+		playerName = save_data[profileNum]["name"]
+		$ChangeProfile/ProfileName/Label.text = playerName
+		
+		# make buttons pressable again
 		playPressable = true
 		settingsPressable = true
 		exitPressable = true
 		profilePressable = true
-	
+
 func _on_Start_Button_pressed():
 	if playPressable == true:
 		print("playin le game")
