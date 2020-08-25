@@ -255,6 +255,7 @@ margin_bottom = 22.0
 text = "No"
 
 [node name="ProfilePanel" type="PopupPanel" parent="."]
+visible = true
 margin_left = 288.0
 margin_top = 144.0
 margin_right = 768.0
@@ -399,25 +400,10 @@ margin_bottom = 21.0
 toggle_mode = true
 text = "(Player Five)"
 
-[node name="ProfileSwitch" type="VBoxContainer" parent="ProfilePanel/Control"]
-margin_left = 8.0
-margin_top = 178.0
-margin_right = 106.0
-margin_bottom = 199.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="ProfilePanel/Control/ProfileSwitch"]
-margin_right = 98.0
-margin_bottom = 20.0
-disabled = true
-text = "Switch Profile"
-
 [node name="ProfileCreate" type="VBoxContainer" parent="ProfilePanel/Control"]
-margin_left = 116.0
+margin_left = 8.0
 margin_top = 176.0
-margin_right = 224.0
+margin_right = 116.0
 margin_bottom = 200.0
 alignment = 1
 __meta__ = {
@@ -428,8 +414,22 @@ __meta__ = {
 margin_top = 2.0
 margin_right = 108.0
 margin_bottom = 22.0
-disabled = true
 text = "Create Profile"
+
+[node name="ProfileSwitch" type="VBoxContainer" parent="ProfilePanel/Control"]
+margin_left = 128.0
+margin_top = 178.0
+margin_right = 226.0
+margin_bottom = 199.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="ProfilePanel/Control/ProfileSwitch"]
+margin_right = 98.0
+margin_bottom = 20.0
+disabled = true
+text = "Switch Profile"
 
 [node name="ProfileEdit" type="VBoxContainer" parent="ProfilePanel/Control"]
 margin_left = 236.0
@@ -605,6 +605,9 @@ __meta__ = {
 [connection signal="pressed" from="ExitConfirmation/Control/ExitConfirm/ExitConfirmNo/ExitNo" to="." method="_on_ExitNoButton_pressed"]
 [connection signal="pressed" from="ProfilePanel/Control/ProfileExit/Button" to="." method="_on_ProfileExitButton_pressed"]
 [connection signal="toggled" from="ProfilePanel/Control/ProfileList/Profile0/Button" to="." method="_on_ProfileZeroButton_toggled"]
+[connection signal="toggled" from="ProfilePanel/Control/ProfileList/Profile1/Button" to="." method="_on_ProfileOneButton_toggled"]
+[connection signal="toggled" from="ProfilePanel/Control/ProfileList/Profile2/Button" to="." method="_on_ProfileTwoButton_toggled"]
+[connection signal="toggled" from="ProfilePanel/Control/ProfileList/Profile3/Button" to="." method="_on_ProfileThreeButton_toggled"]
 [connection signal="pressed" from="NewProfileMaker/Control/ProfileMakerExit/Button" to="." method="_on_ExitProfileMakerButton_pressed"]
 [connection signal="pressed" from="NewProfileMaker/Control/MakeProfile" to="." method="_on_MakeProfileButton_pressed"]
 [connection signal="pressed" from="ChangeProfile/ProfileButton/Button" to="." method="_on_ProfileButton_pressed"]
