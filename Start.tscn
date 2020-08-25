@@ -255,10 +255,9 @@ margin_bottom = 22.0
 text = "No"
 
 [node name="ProfilePanel" type="PopupPanel" parent="."]
-visible = true
-margin_left = 336.0
+margin_left = 288.0
 margin_top = 144.0
-margin_right = 719.0
+margin_right = 768.0
 margin_bottom = 360.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -267,16 +266,16 @@ __meta__ = {
 [node name="Control" type="Control" parent="ProfilePanel"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 379.0
+margin_right = 476.0
 margin_bottom = 212.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ProfileExit" type="HBoxContainer" parent="ProfilePanel/Control"]
-margin_left = 356.0
+margin_left = 452.0
 margin_top = -4.0
-margin_right = 379.0
+margin_right = 475.0
 margin_bottom = 20.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -288,9 +287,9 @@ margin_bottom = 24.0
 text = "x"
 
 [node name="ProfileLabel" type="VBoxContainer" parent="ProfilePanel/Control"]
-margin_left = 20.0
+margin_left = 66.0
 margin_top = -4.0
-margin_right = 356.0
+margin_right = 402.0
 margin_bottom = 20.0
 alignment = 1
 __meta__ = {
@@ -308,9 +307,9 @@ valign = 1
 uppercase = true
 
 [node name="ProfileList" type="Control" parent="ProfilePanel/Control"]
-margin_left = 20.0
+margin_left = 66.0
 margin_top = 21.0
-margin_right = 356.0
+margin_right = 402.0
 margin_bottom = 152.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -320,18 +319,17 @@ __meta__ = {
 margin_left = 72.0
 margin_top = 12.0
 margin_right = 264.0
-margin_bottom = 35.0
+margin_bottom = 32.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Button" type="Button" parent="ProfilePanel/Control/ProfileList/Profile0"]
-margin_top = 1.0
 margin_right = 192.0
-margin_bottom = 21.0
+margin_bottom = 20.0
 toggle_mode = true
-text = "Player One"
+text = "(Player One)"
 
 [node name="Profile1" type="VBoxContainer" parent="ProfilePanel/Control/ProfileList"]
 margin_left = 72.0
@@ -348,7 +346,7 @@ margin_top = 1.0
 margin_right = 192.0
 margin_bottom = 21.0
 toggle_mode = true
-text = "Player Two"
+text = "(Player Two)"
 
 [node name="Profile2" type="VBoxContainer" parent="ProfilePanel/Control/ProfileList"]
 margin_left = 72.0
@@ -365,7 +363,7 @@ margin_top = 1.0
 margin_right = 192.0
 margin_bottom = 21.0
 toggle_mode = true
-text = "Player Three"
+text = "(Player Three)"
 
 [node name="Profile3" type="VBoxContainer" parent="ProfilePanel/Control/ProfileList"]
 margin_left = 72.0
@@ -382,7 +380,7 @@ margin_top = 1.0
 margin_right = 192.0
 margin_bottom = 21.0
 toggle_mode = true
-text = "Player Four"
+text = "(Player Four)"
 
 [node name="Profile4" type="VBoxContainer" parent="ProfilePanel/Control/ProfileList"]
 margin_left = 72.0
@@ -399,12 +397,12 @@ margin_top = 1.0
 margin_right = 192.0
 margin_bottom = 21.0
 toggle_mode = true
-text = "Player Five"
+text = "(Player Five)"
 
 [node name="ProfileSwitch" type="VBoxContainer" parent="ProfilePanel/Control"]
-margin_left = 20.0
+margin_left = 8.0
 margin_top = 178.0
-margin_right = 118.0
+margin_right = 106.0
 margin_bottom = 199.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -417,9 +415,9 @@ disabled = true
 text = "Switch Profile"
 
 [node name="ProfileCreate" type="VBoxContainer" parent="ProfilePanel/Control"]
-margin_left = 128.0
+margin_left = 116.0
 margin_top = 176.0
-margin_right = 236.0
+margin_right = 224.0
 margin_bottom = 200.0
 alignment = 1
 __meta__ = {
@@ -433,10 +431,27 @@ margin_bottom = 22.0
 disabled = true
 text = "Create Profile"
 
-[node name="ProfileDelete" type="VBoxContainer" parent="ProfilePanel/Control"]
-margin_left = 248.0
+[node name="ProfileEdit" type="VBoxContainer" parent="ProfilePanel/Control"]
+margin_left = 236.0
 margin_top = 176.0
-margin_right = 356.0
+margin_right = 344.0
+margin_bottom = 200.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="ProfilePanel/Control/ProfileEdit"]
+margin_top = 2.0
+margin_right = 108.0
+margin_bottom = 22.0
+disabled = true
+text = "Edit Profile"
+
+[node name="ProfileDelete" type="VBoxContainer" parent="ProfilePanel/Control"]
+margin_left = 356.0
+margin_top = 176.0
+margin_right = 464.0
 margin_bottom = 200.0
 alignment = 1
 __meta__ = {
@@ -589,6 +604,7 @@ __meta__ = {
 [connection signal="pressed" from="ExitConfirmation/Control/ExitConfirm/ExitConfirmYes/Button" to="." method="_on_ExitYesButton_pressed"]
 [connection signal="pressed" from="ExitConfirmation/Control/ExitConfirm/ExitConfirmNo/ExitNo" to="." method="_on_ExitNoButton_pressed"]
 [connection signal="pressed" from="ProfilePanel/Control/ProfileExit/Button" to="." method="_on_ProfileExitButton_pressed"]
+[connection signal="toggled" from="ProfilePanel/Control/ProfileList/Profile0/Button" to="." method="_on_ProfileZeroButton_toggled"]
 [connection signal="pressed" from="NewProfileMaker/Control/ProfileMakerExit/Button" to="." method="_on_ExitProfileMakerButton_pressed"]
 [connection signal="pressed" from="NewProfileMaker/Control/MakeProfile" to="." method="_on_MakeProfileButton_pressed"]
 [connection signal="pressed" from="ChangeProfile/ProfileButton/Button" to="." method="_on_ProfileButton_pressed"]

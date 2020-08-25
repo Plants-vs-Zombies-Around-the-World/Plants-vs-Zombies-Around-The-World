@@ -5,7 +5,7 @@ var settingsPressable = true
 var exitPressable = true
 var profilePressable = true
 var playerName
-var profileNum
+var profileNum = 0
 
 func _ready():
 	# make most of the buttons unpressable
@@ -30,6 +30,10 @@ func _ready():
 		# when a save file is filled up, collect stuff about the last chosen profile
 		playerName = save_data[profileNum]["name"]
 		$ChangeProfile/ProfileName/Label.text = playerName
+		
+		# fill up all the profile names
+		for n in range(save_data.size()):
+			get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data[n]["name"]
 		
 		# make buttons pressable again
 		playPressable = true
@@ -87,6 +91,7 @@ func _on_ProfileButton_pressed():
 
 func _on_ProfileExitButton_pressed():
 	$ProfilePanel.hide()
+	$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 	settingsPressable = true
 	playPressable = true
 	exitPressable = true
@@ -120,6 +125,7 @@ func _on_MakeProfileButton_pressed():
 		
 		# change stuff to accomodate for the changed profile
 		$ChangeProfile/ProfileName/Label.text = playerName
+		get_node("ProfilePanel/Control/ProfileList/Profile"+str(profileNum)+"/Button").text = save_data["data"][profileNum]["name"]
 		
 		# exit and make buttons pressable again
 		playPressable = true
@@ -129,3 +135,13 @@ func _on_MakeProfileButton_pressed():
 		$NewProfileMaker.hide()
 	else:
 		$NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
+
+func _on_ProfileZeroButton_toggled(button_pressed):
+	if button_pressed == true:
+		print("hello")
+		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
+		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+	else:
+		print("goodbye")
+		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
+		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
