@@ -3,5 +3,5 @@ The source code for the fangame Plants vs Zombies: Around the World. Written wit
 
 Please note that the `save_data.json` file here should look like this at all times:
 ```
-{"profileNum":0,"data":[]}
+{"profileNum":0,"data":[null,null,null,null,null]}
 ```
