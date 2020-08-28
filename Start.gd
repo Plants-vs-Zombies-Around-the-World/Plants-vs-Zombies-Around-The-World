@@ -132,6 +132,15 @@ func _on_MakeProfileButton_pressed():
 		$ChangeProfile/ProfileName/Label.text = playerName
 		get_node("ProfilePanel/Control/ProfileList/Profile"+str(profileNum)+"/Button").text = save_data["data"][profileNum]["name"]
 		
+		# update profile list when new profile is made
+		for n in range(5):
+			if n < save_data["data"].size():
+				# for available profiles
+				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data["data"][n]["name"]
+			else:
+				# for unavailable profiles
+				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = true
+		
 		# exit and make buttons pressable again
 		playPressable = true
 		settingsPressable = true
@@ -142,9 +151,7 @@ func _on_MakeProfileButton_pressed():
 		$NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
 
 func _on_ProfileZeroButton_toggled(button_pressed):
-	# the first profile can never be truly deleted no matter what
 	if button_pressed == true && profileNum == 0:
-		print("hello")
 		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
@@ -164,7 +171,6 @@ func _on_ProfileZeroButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
 	else:
-		print("goodbye")
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
@@ -172,7 +178,6 @@ func _on_ProfileZeroButton_toggled(button_pressed):
 
 func _on_ProfileOneButton_toggled(button_pressed):
 	if button_pressed == true && profileNum == 1:
-		print("hello")
 		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
@@ -182,8 +187,7 @@ func _on_ProfileOneButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
-	if button_pressed == true && profileNum != 1:
-		print("hello")
+	elif button_pressed == true && profileNum != 1:
 		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
@@ -193,7 +197,6 @@ func _on_ProfileOneButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
 	else:
-		print("goodbye")
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
@@ -202,7 +205,6 @@ func _on_ProfileOneButton_toggled(button_pressed):
 
 func _on_ProfileTwoButton_toggled(button_pressed):
 	if button_pressed == true && profileNum == 2:
-		print("hello")
 		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
@@ -212,11 +214,36 @@ func _on_ProfileTwoButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
-	if button_pressed == true && profileNum != 2:
-		print("hello")
+	elif button_pressed == true && profileNum != 2:
 		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+		
+		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
+		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
+		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+	else:
+		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
+		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
+		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
+		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
+
+func _on_ProfileThreeButton_toggled(button_pressed):
+	if button_pressed == true && profileNum == 3:
+		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+		
+		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
+		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
+		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
+		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+	elif button_pressed == true && profileNum != 3:
+		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
@@ -229,30 +256,27 @@ func _on_ProfileTwoButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
 
-func _on_ProfileThreeButton_toggled(button_pressed):
-	if button_pressed == true && profileNum == 3:
-		print("hello")
+func _on_ProfileFourButton_toggled(button_pressed):
+	if button_pressed == true && profileNum == 4:
 		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
 		
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
-	if button_pressed == true && profileNum != 3:
-		print("hello")
+	elif button_pressed == true && profileNum != 4:
 		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
 		
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
 	else:
-		print("goodbye")
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
