@@ -22,7 +22,8 @@ func _ready():
 	file.close()
 	var save_data = json_data.result["data"]
 	var profileNum = json_data.result["profileNum"]
-	if save_data.size() <= 0:
+	
+	if save_data.count(null) == 5:
 		# if the save file is empty, open the prompt that will allow for creation of a new profile
 		$NewProfileMaker.show()
 		$NewProfileMaker/Control/ProfileMakerExit.hide()
@@ -33,7 +34,7 @@ func _ready():
 		
 		# fill up all the available profile names
 		for n in range(5):
-			if n < save_data.size():
+			if n < save_data.size() - save_data.count(null):
 				# for available profiles
 				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data[n]["name"]
 			else:
@@ -120,7 +121,7 @@ func _on_MakeProfileButton_pressed():
 		var save_data = save_json.result
 		
 		# do stuff for save file
-		save_data["data"] = [{"name": playerName}]
+		save_data["data"][save_data["data"].size()-save_data["data"].count(null)] = {"name": playerName}
 		
 		#overwrite save file
 		var editedSave = File.new()
@@ -134,7 +135,7 @@ func _on_MakeProfileButton_pressed():
 		
 		# update profile list when new profile is made
 		for n in range(5):
-			if n < save_data["data"].size():
+			if n < save_data["data"].size() - save_data["data"].count(null):
 				# for available profiles
 				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data["data"][n]["name"]
 			else:
@@ -151,7 +152,7 @@ func _on_MakeProfileButton_pressed():
 		$NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
 
 func _on_ProfileZeroButton_toggled(button_pressed):
-	if button_pressed == true && profileNum == 0:
+	if button_pressed == true:
 		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
@@ -159,15 +160,6 @@ func _on_ProfileZeroButton_toggled(button_pressed):
 		
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
-	elif button_pressed == true && profileNum != 0:
-		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
-		
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
 	else:
@@ -177,22 +169,13 @@ func _on_ProfileZeroButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
 
 func _on_ProfileOneButton_toggled(button_pressed):
-	if button_pressed == true && profileNum == 1:
+	if button_pressed == true:
 		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
-	elif button_pressed == true && profileNum != 1:
-		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
-		
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
@@ -204,22 +187,13 @@ func _on_ProfileOneButton_toggled(button_pressed):
 
 
 func _on_ProfileTwoButton_toggled(button_pressed):
-	if button_pressed == true && profileNum == 2:
+	if button_pressed == true:
 		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
-	elif button_pressed == true && profileNum != 2:
-		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
-		
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
@@ -230,22 +204,13 @@ func _on_ProfileTwoButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
 
 func _on_ProfileThreeButton_toggled(button_pressed):
-	if button_pressed == true && profileNum == 3:
+	if button_pressed == true:
 		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
-	elif button_pressed == true && profileNum != 3:
-		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
-		
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
@@ -257,7 +222,7 @@ func _on_ProfileThreeButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
 
 func _on_ProfileFourButton_toggled(button_pressed):
-	if button_pressed == true && profileNum == 4:
+	if button_pressed == true:
 		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
@@ -267,17 +232,20 @@ func _on_ProfileFourButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
-	elif button_pressed == true && profileNum != 4:
-		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-		
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
 	else:
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
+
+func _on_CreateProfileButton_pressed():
+		var save = File.new()
+		save.open("res://save_data.json", File.READ)
+		var save_json = JSON.parse(save.get_as_text())
+		save.close()
+		var save_data = save_json.result
+		
+		if save_data["data"].count(null) != 0:
+			$NewProfileMaker.show()
+		else:
+			print("too many profiles")

@@ -608,6 +608,7 @@ __meta__ = {
 [connection signal="toggled" from="ProfilePanel/Control/ProfileList/Profile2/Button" to="." method="_on_ProfileTwoButton_toggled"]
 [connection signal="toggled" from="ProfilePanel/Control/ProfileList/Profile3/Button" to="." method="_on_ProfileThreeButton_toggled"]
 [connection signal="toggled" from="ProfilePanel/Control/ProfileList/Profile4/Button" to="." method="_on_ProfileFourButton_toggled"]
+[connection signal="pressed" from="ProfilePanel/Control/ProfileCreate/Button" to="." method="_on_CreateProfileButton_pressed"]
 [connection signal="pressed" from="NewProfileMaker/Control/ProfileMakerExit/Button" to="." method="_on_ExitProfileMakerButton_pressed"]
 [connection signal="pressed" from="NewProfileMaker/Control/MakeProfile" to="." method="_on_MakeProfileButton_pressed"]
 [connection signal="pressed" from="ChangeProfile/ProfileButton/Button" to="." method="_on_ProfileButton_pressed"]
