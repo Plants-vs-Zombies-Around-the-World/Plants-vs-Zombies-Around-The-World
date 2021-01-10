@@ -103,6 +103,7 @@ func _on_ProfileButton_pressed():
 func _on_ProfileExitButton_pressed():
 	$ProfilePanel.hide()
 	$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+	$ProfilePanel/Control/ProfileMaxWarning/Label.text = ""
 	settingsPressable = true
 	playPressable = true
 	exitPressable = true
@@ -276,5 +277,3 @@ func _onProfileSwitchButton_pressed():
 			print("three")
 		4:
 			print("four")
-	
-	print("test")
