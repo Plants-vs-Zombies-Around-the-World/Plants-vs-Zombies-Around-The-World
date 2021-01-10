@@ -91,7 +91,7 @@ func _on_CreditsButton_pressed():
 
 func _on_DiscordButton_pressed():
 # warning-ignore:return_value_discarded
-	OS.shell_open("https://discord.gg/bP6sAky")
+	OS.shell_open("https://discord.gg/NnhXQgEqSp")
 
 func _on_ProfileButton_pressed():
 	if profilePressable == true:
