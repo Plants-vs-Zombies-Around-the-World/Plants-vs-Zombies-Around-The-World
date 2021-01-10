@@ -255,10 +255,11 @@ margin_bottom = 22.0
 text = "No"
 
 [node name="ProfilePanel" type="PopupPanel" parent="."]
+visible = true
 margin_left = 288.0
 margin_top = 144.0
 margin_right = 768.0
-margin_bottom = 360.0
+margin_bottom = 380.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -267,7 +268,7 @@ __meta__ = {
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 476.0
-margin_bottom = 212.0
+margin_bottom = 232.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -399,11 +400,29 @@ margin_bottom = 21.0
 toggle_mode = true
 text = "(Player Five)"
 
+[node name="ProfileMaxWarning" type="VBoxContainer" parent="ProfilePanel/Control"]
+margin_left = 20.0
+margin_top = 160.0
+margin_right = 452.0
+margin_bottom = 183.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ProfilePanel/Control/ProfileMaxWarning"]
+margin_top = 4.0
+margin_right = 432.0
+margin_bottom = 18.0
+align = 1
+valign = 1
+autowrap = true
+
 [node name="ProfileCreate" type="VBoxContainer" parent="ProfilePanel/Control"]
 margin_left = 8.0
-margin_top = 176.0
+margin_top = 198.0
 margin_right = 116.0
-margin_bottom = 200.0
+margin_bottom = 222.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -417,9 +436,9 @@ text = "Create Profile"
 
 [node name="ProfileSwitch" type="VBoxContainer" parent="ProfilePanel/Control"]
 margin_left = 128.0
-margin_top = 178.0
+margin_top = 198.0
 margin_right = 226.0
-margin_bottom = 199.0
+margin_bottom = 219.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -428,13 +447,14 @@ __meta__ = {
 margin_right = 98.0
 margin_bottom = 20.0
 disabled = true
+action_mode = 0
 text = "Switch Profile"
 
 [node name="ProfileEdit" type="VBoxContainer" parent="ProfilePanel/Control"]
 margin_left = 236.0
-margin_top = 176.0
+margin_top = 198.0
 margin_right = 344.0
-margin_bottom = 200.0
+margin_bottom = 222.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -449,9 +469,9 @@ text = "Edit Profile"
 
 [node name="ProfileDelete" type="VBoxContainer" parent="ProfilePanel/Control"]
 margin_left = 356.0
-margin_top = 176.0
+margin_top = 198.0
 margin_right = 464.0
-margin_bottom = 200.0
+margin_bottom = 222.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -609,6 +629,7 @@ __meta__ = {
 [connection signal="toggled" from="ProfilePanel/Control/ProfileList/Profile3/Button" to="." method="_on_ProfileThreeButton_toggled"]
 [connection signal="toggled" from="ProfilePanel/Control/ProfileList/Profile4/Button" to="." method="_on_ProfileFourButton_toggled"]
 [connection signal="pressed" from="ProfilePanel/Control/ProfileCreate/Button" to="." method="_on_CreateProfileButton_pressed"]
+[connection signal="pressed" from="ProfilePanel/Control/ProfileSwitch/Button" to="." method="_onProfileSwitchButton_pressed"]
 [connection signal="pressed" from="NewProfileMaker/Control/ProfileMakerExit/Button" to="." method="_on_ExitProfileMakerButton_pressed"]
 [connection signal="pressed" from="NewProfileMaker/Control/MakeProfile" to="." method="_on_MakeProfileButton_pressed"]
 [connection signal="pressed" from="ChangeProfile/ProfileButton/Button" to="." method="_on_ProfileButton_pressed"]
