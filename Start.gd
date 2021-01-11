@@ -25,7 +25,7 @@ func _ready():
 	json_data = JSON.parse(data)
 	file.close()
 	save_data = json_data.result["data"]
-	profileNum = json_data.result["profileNum"]
+	profileNum = int(json_data.result["profileNum"])
 	
 	if save_data.count(null) == 5:
 		# if the save file is empty, open the prompt that will allow for creation of a new profile
@@ -126,6 +126,7 @@ func _on_MakeProfileButton_pressed():
 		save_data = json_data.result
 		
 		# do stuff for save file
+		save_data["profileNum"] = save_data["data"].size()-save_data["data"].count(null)
 		save_data["data"][save_data["data"].size()-save_data["data"].count(null)] = {"name": playerName}
 		
 		#overwrite save file
@@ -137,6 +138,7 @@ func _on_MakeProfileButton_pressed():
 		# change stuff to accomodate for the changed profile
 		$ChangeProfile/ProfileName/Label.text = playerName
 		get_node("ProfilePanel/Control/ProfileList/Profile"+str(profileNum)+"/Button").text = save_data["data"][profileNum]["name"]
+		profileNum = save_data["profileNum"]
 		
 		# update profile list when new profile is made
 		for n in range(5):
@@ -166,9 +168,11 @@ func _on_ProfileZeroButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+		
+		if profileNum != 0:
+			$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 	else:
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
@@ -183,9 +187,11 @@ func _on_ProfileOneButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+		
+		if profileNum != 1:
+			$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 	else:
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
@@ -201,9 +207,11 @@ func _on_ProfileTwoButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+		
+		if profileNum != 2:
+			$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 	else:
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
@@ -218,9 +226,11 @@ func _on_ProfileThreeButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+		
+		if profileNum != 3:
+			$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 	else:
 		print("goodbye")
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
@@ -236,9 +246,11 @@ func _on_ProfileFourButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
 		
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+	
+		if profileNum != 4:
+			$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 	else:
 		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
 		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
@@ -266,14 +278,331 @@ func _onProfileSwitchButton_pressed():
 	file.close()
 	save_data = json_data.result
 	
+	var editedSave
+	
 	match profileNum:
 		0:
-			print("zero")
+			if $ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
+				print("from zero to one")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
+				profileNum = 1
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
+				print("from zero to two")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
+				profileNum = 2
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
+				print("from zero to three")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
+				profileNum = 3
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
+				print("from zero to four")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
+				profileNum = 4
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		1:
-			print("one")
+			if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
+				print("from one to zero")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
+				profileNum = 0
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
+				print("from one to two")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
+				profileNum = 2
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
+				print("from one to three")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
+				profileNum = 3
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
+				print("from one to four")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
+				profileNum = 4
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		2:
-			print("two")
+			if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
+				print("from two to zero")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
+				profileNum = 0
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
+				print("from two to one")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
+				profileNum = 1
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
+				print("from two to three")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
+				profileNum = 3
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
+				print("from two to four")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
+				profileNum = 4
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		3:
-			print("three")
+			if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
+				print("from three to zero")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
+				profileNum = 0
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
+				print("from three to one")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
+				profileNum = 1
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
+				print("from three to two")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
+				profileNum = 2
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
+				print("from three to four")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
+				profileNum = 4
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		4:
-			print("four")
+			if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
+				print("from four to zero")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
+				profileNum = 0
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
+				print("from four to one")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
+				profileNum = 1
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
+				print("from four to two")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
+				profileNum = 2
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+			if $ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
+				print("from four to three")
+				# update ingame stuff
+				$ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
+				profileNum = 3
+				
+				# overwrite save data
+				save_data["profileNum"] = profileNum
+				editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				#exit the panel
+				$ProfilePanel.hide()
+				$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
