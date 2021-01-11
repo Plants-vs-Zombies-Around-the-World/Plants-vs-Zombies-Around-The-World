@@ -10,6 +10,8 @@ var file
 var data
 var json_data
 var save_data
+var isSaving = true
+var pressedButton
 
 func _ready():
 	# make most of the buttons unpressable
@@ -114,52 +116,84 @@ func _on_ExitProfileMakerButton_pressed():
 	settingsPressable = true
 	exitPressable = true
 	profilePressable = true
+	isSaving = false
 
 func _on_MakeProfileButton_pressed():
+	# read save file
+	file.open("res://save_data.json", File.READ)
+	json_data = JSON.parse(file.get_as_text())
+	file.close()
+	save_data = json_data.result
+	
 	# this is for when a profile has been created
 	playerName = $NewProfileMaker/Control/ProfileMakerInput.get_text()
-	if playerName.length() > 0:
-		# read save file
-		file.open("res://save_data.json", File.READ)
-		json_data = JSON.parse(file.get_as_text())
-		file.close()
-		save_data = json_data.result
-		
-		# do stuff for save file
-		save_data["profileNum"] = save_data["data"].size()-save_data["data"].count(null)
-		save_data["data"][save_data["data"].size()-save_data["data"].count(null)] = {"name": playerName}
-		
-		#overwrite save file
-		var editedSave = File.new()
-		editedSave.open("res://save_data.json", File.WRITE)
-		editedSave.store_line(JSON.print(save_data))
-		editedSave.close()
-		
-		# change stuff to accomodate for the changed profile
-		$ChangeProfile/ProfileName/Label.text = playerName
-		get_node("ProfilePanel/Control/ProfileList/Profile"+str(profileNum)+"/Button").text = save_data["data"][profileNum]["name"]
-		profileNum = save_data["profileNum"]
-		
-		# update profile list when new profile is made
-		for n in range(5):
-			if n < save_data["data"].size() - save_data["data"].count(null):
-				# for available profiles
-				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data["data"][n]["name"]
-				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = false
+	if isSaving == true:
+			if playerName.length() > 0:
+				# do stuff for save file
+				save_data["profileNum"] = save_data["data"].size()-save_data["data"].count(null)
+				save_data["data"][save_data["data"].size()-save_data["data"].count(null)] = {"name": playerName}
+				
+				#overwrite save file
+				var editedSave = File.new()
+				editedSave.open("res://save_data.json", File.WRITE)
+				editedSave.store_line(JSON.print(save_data))
+				editedSave.close()
+				
+				# change stuff to accomodate for the changed profile
+				$ChangeProfile/ProfileName/Label.text = playerName
+				get_node("ProfilePanel/Control/ProfileList/Profile"+str(profileNum)+"/Button").text = save_data["data"][profileNum]["name"]
+				profileNum = save_data["profileNum"]
+				
+				# update profile list when new profile is made
+				for n in range(5):
+					if n < save_data["data"].size() - save_data["data"].count(null):
+						# for available profiles
+						get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data["data"][n]["name"]
+						get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = false
+					else:
+						# for unavailable profiles
+						get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = true
+					
+				# exit and make buttons pressable again
+				playPressable = true
+				settingsPressable = true
+				exitPressable = true
+				profilePressable = true
+				$NewProfileMaker.hide()
+				$NewProfileMaker/Control/ProfileMakerWarning/Label.text = ""
 			else:
-				# for unavailable profiles
-				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = true
+				$NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
+	elif isSaving == false:
+		print("yeet")
+		playerName = $NewProfileMaker/Control/ProfileMakerInput.text
+		if playerName.length() > 0:
+			save_data["data"][pressedButton]["name"] = playerName
+			
+			#overwrite save file
+			var editedSave = File.new()
+			editedSave.open("res://save_data.json", File.WRITE)
+			editedSave.store_line(JSON.print(save_data))
+			editedSave.close()
+			
+			# change stuff to accomodate for the changed profile
+			get_node("ProfilePanel/Control/ProfileList/Profile"+str(pressedButton)+"/Button").text = save_data["data"][pressedButton]["name"]
+			
+			print(profileNum)
+			for _n in range(5):
+				if profileNum == pressedButton:
+					$ChangeProfile/ProfileName/Label.text = playerName
+					get_node("ProfilePanel/Control/ProfileList/Profile"+str(profileNum)+"/Button").text = save_data["data"][profileNum]["name"]
+					profileNum = save_data["profileNum"]
+					break
+			
+			$NewProfileMaker.hide()
+			$NewProfileMaker/Control/ProfileMakerWarning/Label.text = ""
+			isSaving = true
+		else:
+			$NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
+	
+	$NewProfileMaker/Control/ProfileMakerInput.text = ""
 		
-		# exit and make buttons pressable again
-		playPressable = true
-		settingsPressable = true
-		exitPressable = true
-		profilePressable = true
-		$NewProfileMaker.hide()
-		$NewProfileMaker/Control/ProfileMakerWarning/Label.text = ""
-	else:
-		$NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
-
 func _on_ProfileZeroButton_toggled(button_pressed):
 	if button_pressed == true:
 		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
@@ -266,7 +300,6 @@ func _on_CreateProfileButton_pressed():
 		$NewProfileMaker/Control/ProfileMakerExit.show()
 		
 		if save_data["data"].count(null) != 0:
-			$NewProfileMaker/Control/ProfileMakerInput.text = ""
 			$NewProfileMaker.show()
 		else:
 			$ProfilePanel/Control/ProfileMaxWarning/Label.text = "Maximum amount of profiles reached! You can only have up to 5 profiles!"
@@ -606,3 +639,27 @@ func _onProfileSwitchButton_pressed():
 				#exit the panel
 				$ProfilePanel.hide()
 				$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+
+func _on_ProfileEditButton_pressed():
+	isSaving = false
+	
+	#see what button got pressed
+	if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
+		pressedButton = 0
+	if $ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
+		pressedButton = 1
+	if $ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
+		pressedButton = 2
+	if $ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
+		pressedButton = 3
+	if $ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
+		pressedButton = 4
+	
+	# unpress all profiles
+	$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+	$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+	$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+	$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+	$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+	
+	$NewProfileMaker.show()
