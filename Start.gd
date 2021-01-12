@@ -20,6 +20,21 @@ func _ready():
 	exitPressable = false
 	profilePressable = false
 	
+	# check if there is a save file, if there's none, make it
+	var newReadFile = File.new()
+	newReadFile.open("res://save_data.json", File.READ)
+	if newReadFile.file_exists("res://save_data.json") == false:
+		print("file doesnt exist")
+		
+		var newCreateFile = File.new()
+		newCreateFile.open("res://save_data.json", File.WRITE)
+		newCreateFile.store_string("{\"profileNum\":0,\"data\":[null,null,null,null,null]}")
+		newCreateFile.close()
+		newReadFile.close()
+	else:
+		print("file exists")
+		newReadFile.close()
+	
 	# get the save file
 	file = File.new()
 	file.open("res://save_data.json", File.READ)
@@ -291,17 +306,20 @@ func _on_ProfileFourButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
 
 func _on_CreateProfileButton_pressed():
-		file = File.new()
-		file.open("res://save_data.json", File.READ)
-		json_data = JSON.parse(file.get_as_text())
-		file.close()
-		save_data = json_data.result
-		$NewProfileMaker/Control/ProfileMakerExit.show()
-		
-		if save_data["data"].count(null) != 0:
-			$NewProfileMaker.show()
-		else:
-			$ProfilePanel/Control/ProfileMaxWarning/Label.text = "Maximum amount of profiles reached! You can only have up to 5 profiles!"
+	$NewProfileMaker/Control/ProfileMakerHeader/Label.text = "Enter Your Name"
+	$NewProfileMaker/Control/MakeProfile.text = "Create Profile"
+	
+	file = File.new()
+	file.open("res://save_data.json", File.READ)
+	json_data = JSON.parse(file.get_as_text())
+	file.close()
+	save_data = json_data.result
+	$NewProfileMaker/Control/ProfileMakerExit.show()
+	
+	if save_data["data"].count(null) != 0:
+		$NewProfileMaker.show()
+	else:
+		$ProfilePanel/Control/ProfileMaxWarning/Label.text = "Maximum amount of profiles reached! You can only have up to 5 profiles!"
 
 func _onProfileSwitchButton_pressed():
 	file = File.new()
@@ -642,6 +660,9 @@ func _onProfileSwitchButton_pressed():
 func _on_ProfileEditButton_pressed():
 	isSaving = false
 	
+	$NewProfileMaker/Control/ProfileMakerHeader/Label.text = "Edit Name"
+	$NewProfileMaker/Control/MakeProfile.text = "Change Profile"
+	
 	#see what button got pressed
 	if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
 		pressedButton = 0
@@ -662,7 +683,6 @@ func _on_ProfileEditButton_pressed():
 	$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 	
 	$NewProfileMaker.show()
-	$ProfilePanel.hide()
 
 func _on_ProfileDeleteButton_pressed():
 	#see what button got pressed
