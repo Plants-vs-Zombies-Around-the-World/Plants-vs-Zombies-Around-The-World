@@ -4,12 +4,9 @@ var playPressable = true
 var settingsPressable = true
 var exitPressable = true
 var profilePressable = true
+var profileMakerPressable = true
 var playerName
 var profileNum
-var file
-var data
-var json_data
-var save_data
 var isSaving = true
 var pressedButton
 
@@ -36,12 +33,12 @@ func _ready():
 		newReadFile.close()
 	
 	# get the save file
-	file = File.new()
+	var file = File.new()
 	file.open("res://save_data.json", File.READ)
-	data = file.get_as_text()
-	json_data = JSON.parse(data)
+	var data = file.get_as_text()
+	var json_data = JSON.parse(data)
 	file.close()
-	save_data = json_data.result["data"]
+	var save_data = json_data.result["data"]
 	profileNum = int(json_data.result["profileNum"])
 	
 	if save_data.count(null) == 5:
@@ -118,12 +115,13 @@ func _on_ProfileButton_pressed():
 		exitPressable = false
 
 func _on_ProfileExitButton_pressed():
-	$ProfilePanel.hide()
-	$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-	$ProfilePanel/Control/ProfileMaxWarning/Label.text = ""
-	settingsPressable = true
-	playPressable = true
-	exitPressable = true
+	if profileMakerPressable == true:
+		$ProfilePanel.hide()
+		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+		$ProfilePanel/Control/ProfileMaxWarning/Label.text = ""
+		settingsPressable = true
+		playPressable = true
+		exitPressable = true
 
 func _on_ExitProfileMakerButton_pressed():
 	$NewProfileMaker.hide()
@@ -132,13 +130,17 @@ func _on_ExitProfileMakerButton_pressed():
 	exitPressable = true
 	profilePressable = true
 	isSaving = false
+	
+	$NewProfileMaker/Control/ProfileMakerWarning/Label.text = ""
+	profileMakerPressable = true
 
 func _on_MakeProfileButton_pressed():
 	# read save file
+	var file = File.new()
 	file.open("res://save_data.json", File.READ)
-	json_data = JSON.parse(file.get_as_text())
+	var json_data = JSON.parse(file.get_as_text())
 	file.close()
-	save_data = json_data.result
+	var save_data = json_data.result
 	
 	playerName = $NewProfileMaker/Control/ProfileMakerInput.get_text()
 	if isSaving == true: # this is for when a profile has been created
@@ -207,7 +209,8 @@ func _on_MakeProfileButton_pressed():
 			$NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
 	
 	$NewProfileMaker/Control/ProfileMakerInput.text = ""
-		
+	profileMakerPressable = true
+	
 func _on_ProfileZeroButton_toggled(button_pressed):
 	if button_pressed == true:
 		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
@@ -306,27 +309,30 @@ func _on_ProfileFourButton_toggled(button_pressed):
 		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
 
 func _on_CreateProfileButton_pressed():
+	profileMakerPressable = false
 	$NewProfileMaker/Control/ProfileMakerHeader/Label.text = "Enter Your Name"
 	$NewProfileMaker/Control/MakeProfile.text = "Create Profile"
 	
-	file = File.new()
+	var file = File.new()
 	file.open("res://save_data.json", File.READ)
-	json_data = JSON.parse(file.get_as_text())
+	var json_data = JSON.parse(file.get_as_text())
 	file.close()
-	save_data = json_data.result
-	$NewProfileMaker/Control/ProfileMakerExit.show()
+	var save_data = json_data.result
 	
 	if save_data["data"].count(null) != 0:
 		$NewProfileMaker.show()
 	else:
 		$ProfilePanel/Control/ProfileMaxWarning/Label.text = "Maximum amount of profiles reached! You can only have up to 5 profiles!"
+	
+	$NewProfileMaker/Control/ProfileMakerExit.show()
 
 func _onProfileSwitchButton_pressed():
-	file = File.new()
+	profileMakerPressable = false
+	var file = File.new()
 	file.open("res://save_data.json", File.READ)
-	json_data = JSON.parse(file.get_as_text())
+	var json_data = JSON.parse(file.get_as_text())
 	file.close()
-	save_data = json_data.result
+	var save_data = json_data.result
 	
 	var editedSave
 	
@@ -658,6 +664,7 @@ func _onProfileSwitchButton_pressed():
 				$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
 
 func _on_ProfileEditButton_pressed():
+	profileMakerPressable = false
 	isSaving = false
 	
 	$NewProfileMaker/Control/ProfileMakerHeader/Label.text = "Edit Name"
@@ -683,8 +690,11 @@ func _on_ProfileEditButton_pressed():
 	$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 	
 	$NewProfileMaker.show()
+	$NewProfileMaker/Control/ProfileMakerExit.show()
 
 func _on_ProfileDeleteButton_pressed():
+	profileMakerPressable = false
+	
 	#see what button got pressed
 	if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
 		pressedButton = 0
@@ -712,17 +722,20 @@ func _on_DeleteProfileNoButton_pressed():
 	$ProfilePanel.show()
 
 func _on_DeleteProfileYesButton_pressed():
+	print("delete")
 	# read save file
+	var file = File.new()
 	file.open("res://save_data.json", File.READ)
-	json_data = JSON.parse(file.get_as_text())
+	var json_data = JSON.parse(file.get_as_text())
 	file.close()
-	save_data = json_data.result
+	var save_data = json_data.result
 	
 	# edit save file and extract stuff from it
 	save_data["data"][pressedButton] = null
 	save_data["data"].sort_custom(customProfileSorter, "sort")
 	profileNum = save_data["profileNum"]
 	
+	print("what do now")
 	if save_data["data"][profileNum] == null && (save_data["data"].size() - save_data["data"].count(null)) > 0: # do stuff normally if there are some profiles left
 		print("many profiles left")
 		profileNum -= 1
