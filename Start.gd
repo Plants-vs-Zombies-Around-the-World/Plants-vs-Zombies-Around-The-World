@@ -69,6 +69,7 @@ func _ready():
 func _on_Start_Button_pressed():
 	if playPressable == true:
 		print("playin le game")
+		get_tree().change_scene("res://LevelBrowser/LevelBrowser.tscn")
 
 func _on_Settings_Button_pressed():
 	if settingsPressable == true:
