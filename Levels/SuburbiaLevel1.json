@@ -1,0 +1,93 @@
+{
+	"ATWLevel": {
+		"definition": {
+			"type": "tutorialLevel",
+			"stage": "suburbia",
+			"waves": 1,
+			"zombieGroupDelay": 5
+		},
+		"zombies": [
+			{
+				"type": "basicBrowncoat",
+				"count": 3
+			},
+			{
+				"type": "coneheadBrowncoat",
+				"count": 1
+			},
+			{
+				"type": "bucketheadBrowncoat",
+				"count": 1
+			}
+		],
+		"levelGameplay": {
+			"0": [
+				{
+					"events": {
+						"sendZombies": [
+							{
+								"type": "basicBrowncoat",
+								"lane": "random"
+							}
+						]
+					}
+				},
+				{
+					"events": {
+						"sendZombies": [
+							{
+								"type": "basicBrowncoat",
+								"lane": "random"
+							}
+						]
+					}
+				},
+				{
+					"events": {
+						"sendZombies": [
+							{
+								"type": "basicBrowncoat",
+								"lane": "random"
+							}
+						]
+					}
+				},
+				{
+					"events": {
+						"sendZombies": [
+							{
+								"type": "basicBrowncoat",
+								"lane": 1
+							},
+							{
+								"type": "basicBrowncoat",
+								"lane": 4
+							}
+						]
+					}
+				},
+				{
+					"events": {
+						"sendZombies": [
+							{
+								"type": "basicBrowncoat",
+								"lane": 0
+							},
+							{
+								"type": "basicBrowncoat",
+								"lane": 1
+							},
+							{
+								"type": "basicBrowncoat",
+								"lane": 3
+							}
+						]
+					}
+				}
+			],
+			"final": [
+				
+			]
+		}
+	}
+}
