@@ -11,6 +11,8 @@ var isSaving = true
 var pressedButton
 
 func _ready():
+	$Music.playing = true
+	
 	# make most of the buttons unpressable
 	playPressable = false
 	settingsPressable = false
@@ -70,7 +72,6 @@ func _ready():
 func _on_Start_Button_pressed():
 	if playPressable == true:
 		print("playin le game")
-		get_tree().change_scene("res://LevelBrowser/LevelBrowser.tscn")
 
 func _on_Settings_Button_pressed():
 	if settingsPressable == true:

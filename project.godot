@@ -18,6 +18,8 @@ _global_script_class_icons={
 config/name="Plants vs Zombies: Around the World"
 config/description="A Plants vs Zombies fangame"
 run/main_scene="res://Start.tscn"
+boot_splash/image="res://Assets/main menu.png"
+boot_splash/fullsize=false
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
