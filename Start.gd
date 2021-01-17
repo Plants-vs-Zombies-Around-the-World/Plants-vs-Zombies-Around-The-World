@@ -43,22 +43,22 @@ func _ready():
 	
 	if save_data.count(null) == 5:
 		# if the save file is empty, open the prompt that will allow for creation of a new profile
-		$NewProfileMaker.show()
-		$NewProfileMaker/Control/ProfileMakerExit.hide()
+		$MainMenu/NewProfileMaker.show()
+		$MainMenu/NewProfileMaker/Control/ProfileMakerExit.hide()
 	else:
 		# when a save file is filled up, collect stuff about the last chosen profile
 		playerName = save_data[profileNum]["name"]
 		print(profileNum)
-		$ChangeProfile/ProfileName/Label.text = playerName
+		$MainMenu/ChangeProfile/ProfileName/Label.text = playerName
 		
 		# fill up all the available profile names
 		for n in range(5):
 			if n < save_data.size() - save_data.count(null):
 				# for available profiles
-				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data[n]["name"]
+				get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data[n]["name"]
 			else:
 				# for unavailable profiles
-				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = true
+				get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = true
 		
 		# make buttons pressable again
 		playPressable = true
@@ -66,6 +66,7 @@ func _ready():
 		exitPressable = true
 		profilePressable = true
 
+# all functions from this point on are for the main menu
 func _on_Start_Button_pressed():
 	if playPressable == true:
 		print("playin le game")
@@ -73,26 +74,26 @@ func _on_Start_Button_pressed():
 
 func _on_Settings_Button_pressed():
 	if settingsPressable == true:
-		$Settings.show()
+		$MainMenu/Settings.show()
 		exitPressable = false
 		playPressable = false
 		profilePressable = false
 
 func _on_Exit_Button_pressed():
 	if exitPressable == true:
-		$ExitConfirmation.show()
+		$MainMenu/ExitConfirmation.show()
 		settingsPressable = false
 		playPressable = false
 		profilePressable = false
 
 func _on_SettingsExitButton_pressed():
-	$Settings.hide()
+	$MainMenu/Settings.hide()
 	exitPressable = true
 	playPressable = true
 	profilePressable = true
 
 func _on_ExitNoButton_pressed():
-	$ExitConfirmation.hide()
+	$MainMenu/ExitConfirmation.hide()
 	settingsPressable = true
 	playPressable = true
 	profilePressable = true
@@ -101,8 +102,9 @@ func _on_ExitYesButton_pressed():
 	get_tree().quit()
 
 func _on_CreditsButton_pressed():
-# warning-ignore:return_value_discarded
-	get_tree().change_scene("res://Credits/Credits.tscn")
+	$MainMenu.hide()
+	$MainMenu/Settings.hide()
+	$Credits.show()
 
 func _on_DiscordButton_pressed():
 # warning-ignore:return_value_discarded
@@ -110,29 +112,29 @@ func _on_DiscordButton_pressed():
 
 func _on_ProfileButton_pressed():
 	if profilePressable == true:
-		$ProfilePanel.show()
+		$MainMenu/ProfilePanel.show()
 		settingsPressable = false
 		playPressable = false
 		exitPressable = false
 
 func _on_ProfileExitButton_pressed():
 	if profileMakerPressable == true:
-		$ProfilePanel.hide()
-		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-		$ProfilePanel/Control/ProfileMaxWarning/Label.text = ""
+		$MainMenu/ProfilePanel.hide()
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileMaxWarning/Label.text = ""
 		settingsPressable = true
 		playPressable = true
 		exitPressable = true
 
 func _on_ExitProfileMakerButton_pressed():
-	$NewProfileMaker.hide()
+	$MainMenu/NewProfileMaker.hide()
 	playPressable = true
 	settingsPressable = true
 	exitPressable = true
 	profilePressable = true
 	isSaving = false
 	
-	$NewProfileMaker/Control/ProfileMakerWarning/Label.text = ""
+	$MainMenu/NewProfileMaker/Control/ProfileMakerWarning/Label.text = ""
 	profileMakerPressable = true
 
 func _on_MakeProfileButton_pressed():
@@ -143,7 +145,7 @@ func _on_MakeProfileButton_pressed():
 	file.close()
 	var save_data = json_data.result
 	
-	playerName = $NewProfileMaker/Control/ProfileMakerInput.get_text()
+	playerName = $MainMenu/NewProfileMaker/Control/ProfileMakerInput.get_text()
 	if isSaving == true: # this is for when a profile has been created
 			if playerName.length() > 0:
 				# do stuff for save file
@@ -157,32 +159,32 @@ func _on_MakeProfileButton_pressed():
 				editedSave.close()
 				
 				# change stuff to accomodate for the changed profile
-				$ChangeProfile/ProfileName/Label.text = playerName
-				get_node("ProfilePanel/Control/ProfileList/Profile"+str(profileNum)+"/Button").text = save_data["data"][profileNum]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = playerName
+				get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(profileNum)+"/Button").text = save_data["data"][profileNum]["name"]
 				profileNum = save_data["profileNum"]
 				
 				# update profile list when new profile is made
 				for n in range(5):
 					if n < save_data["data"].size() - save_data["data"].count(null):
 						# for available profiles
-						get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data["data"][n]["name"]
-						get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = false
+						get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data["data"][n]["name"]
+						get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = false
 					else:
 						# for unavailable profiles
-						get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = true
+						get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = true
 					
 				# exit and make buttons pressable again
 				playPressable = true
 				settingsPressable = true
 				exitPressable = true
 				profilePressable = true
-				$NewProfileMaker.hide()
-				$NewProfileMaker/Control/ProfileMakerWarning/Label.text = ""
+				$MainMenu/NewProfileMaker.hide()
+				$MainMenu/NewProfileMaker/Control/ProfileMakerWarning/Label.text = ""
 			else:
-				$NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
+				$MainMenu/NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
 	elif isSaving == false: # this is for when a profile is edited
 		print("yeet")
-		playerName = $NewProfileMaker/Control/ProfileMakerInput.text
+		playerName = $MainMenu/NewProfileMaker/Control/ProfileMakerInput.text
 		if playerName.length() > 0:
 			save_data["data"][pressedButton]["name"] = playerName
 			
@@ -193,126 +195,126 @@ func _on_MakeProfileButton_pressed():
 			editedSave.close()
 			
 			# change stuff to accomodate for the changed profile
-			get_node("ProfilePanel/Control/ProfileList/Profile"+str(pressedButton)+"/Button").text = save_data["data"][pressedButton]["name"]
+			get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(pressedButton)+"/Button").text = save_data["data"][pressedButton]["name"]
 			
 			print(profileNum)
 			for _n in range(5):
 				if profileNum == pressedButton:
-					$ChangeProfile/ProfileName/Label.text = playerName
-					get_node("ProfilePanel/Control/ProfileList/Profile"+str(profileNum)+"/Button").text = save_data["data"][profileNum]["name"]
+					$MainMenu/ChangeProfile/ProfileName/Label.text = playerName
+					get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(profileNum)+"/Button").text = save_data["data"][profileNum]["name"]
 					profileNum = save_data["profileNum"]
 					break
 			
-			$NewProfileMaker.hide()
-			$NewProfileMaker/Control/ProfileMakerWarning/Label.text = ""
+			$MainMenu/NewProfileMaker.hide()
+			$MainMenu/NewProfileMaker/Control/ProfileMakerWarning/Label.text = ""
 			isSaving = true
 		else:
-			$NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
+			$MainMenu/NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
 	
-	$NewProfileMaker/Control/ProfileMakerInput.text = ""
+	$MainMenu/NewProfileMaker/Control/ProfileMakerInput.text = ""
 	profileMakerPressable = true
 	
 func _on_ProfileZeroButton_toggled(button_pressed):
 	if button_pressed == true:
-		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
-		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileCreate/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileDelete/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileEdit/Button.disabled = false
 		
 		if profileNum != 0:
-			$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
+			$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 	else:
-		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileCreate/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileDelete/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileEdit/Button.disabled = true
 
 func _on_ProfileOneButton_toggled(button_pressed):
 	if button_pressed == true:
-		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
-		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileCreate/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileDelete/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileEdit/Button.disabled = false
 		
 		if profileNum != 1:
-			$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
+			$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 	else:
-		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileCreate/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileDelete/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileEdit/Button.disabled = true
 
 
 func _on_ProfileTwoButton_toggled(button_pressed):
 	if button_pressed == true:
-		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
-		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileCreate/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileDelete/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileEdit/Button.disabled = false
 		
 		if profileNum != 2:
-			$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
+			$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 	else:
-		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileCreate/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileDelete/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileEdit/Button.disabled = true
 
 func _on_ProfileThreeButton_toggled(button_pressed):
 	if button_pressed == true:
-		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		
-		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileCreate/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileDelete/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileEdit/Button.disabled = false
 		
 		if profileNum != 3:
-			$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
+			$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 	else:
 		print("goodbye")
-		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileCreate/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileDelete/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileEdit/Button.disabled = true
 
 func _on_ProfileFourButton_toggled(button_pressed):
 	if button_pressed == true:
-		$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-		$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+		$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
 		
-		$ProfilePanel/Control/ProfileCreate/Button.disabled = true
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = false
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileCreate/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileDelete/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileEdit/Button.disabled = false
 	
 		if profileNum != 4:
-			$ProfilePanel/Control/ProfileSwitch/Button.disabled = false
+			$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 	else:
-		$ProfilePanel/Control/ProfileCreate/Button.disabled = false
-		$ProfilePanel/Control/ProfileSwitch/Button.disabled = true
-		$ProfilePanel/Control/ProfileDelete/Button.disabled = true
-		$ProfilePanel/Control/ProfileEdit/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileCreate/Button.disabled = false
+		$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileDelete/Button.disabled = true
+		$MainMenu/ProfilePanel/Control/ProfileEdit/Button.disabled = true
 
 func _on_CreateProfileButton_pressed():
 	profileMakerPressable = false
-	$NewProfileMaker/Control/ProfileMakerHeader/Label.text = "Enter Your Name"
-	$NewProfileMaker/Control/MakeProfile.text = "Create Profile"
+	$MainMenu/NewProfileMaker/Control/ProfileMakerHeader/Label.text = "Enter Your Name"
+	$MainMenu/NewProfileMaker/Control/MakeProfile.text = "Create Profile"
 	
 	var file = File.new()
 	file.open("res://save_data.json", File.READ)
@@ -321,11 +323,11 @@ func _on_CreateProfileButton_pressed():
 	var save_data = json_data.result
 	
 	if save_data["data"].count(null) != 0:
-		$NewProfileMaker.show()
+		$MainMenu/NewProfileMaker.show()
 	else:
-		$ProfilePanel/Control/ProfileMaxWarning/Label.text = "Maximum amount of profiles reached! You can only have up to 5 profiles!"
+		$MainMenu/ProfilePanel/Control/ProfileMaxWarning/Label.text = "Maximum amount of profiles reached! You can only have up to 5 profiles!"
 	
-	$NewProfileMaker/Control/ProfileMakerExit.show()
+	$MainMenu/NewProfileMaker/Control/ProfileMakerExit.show()
 
 func _onProfileSwitchButton_pressed():
 	profileMakerPressable = false
@@ -339,10 +341,10 @@ func _onProfileSwitchButton_pressed():
 	
 	match profileNum:
 		0:
-			if $ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
 				print("from zero to one")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
 				profileNum = 1
 				
 				# overwrite save data
@@ -353,12 +355,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
 				print("from zero to two")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
 				profileNum = 2
 				
 				# overwrite save data
@@ -369,12 +371,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
 				print("from zero to three")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
 				profileNum = 3
 				
 				# overwrite save data
@@ -385,12 +387,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
 				print("from zero to four")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
 				profileNum = 4
 				
 				# overwrite save data
@@ -401,13 +403,13 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		1:
-			if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
 				print("from one to zero")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
 				profileNum = 0
 				
 				# overwrite save data
@@ -418,12 +420,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
 				print("from one to two")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
 				profileNum = 2
 				
 				# overwrite save data
@@ -434,12 +436,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
 				print("from one to three")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
 				profileNum = 3
 				
 				# overwrite save data
@@ -450,12 +452,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
 				print("from one to four")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
 				profileNum = 4
 				
 				# overwrite save data
@@ -466,13 +468,13 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		2:
-			if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
 				print("from two to zero")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
 				profileNum = 0
 				
 				# overwrite save data
@@ -483,12 +485,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
 				print("from two to one")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
 				profileNum = 1
 				
 				# overwrite save data
@@ -499,12 +501,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
 				print("from two to three")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
 				profileNum = 3
 				
 				# overwrite save data
@@ -515,12 +517,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
 				print("from two to four")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
 				profileNum = 4
 				
 				# overwrite save data
@@ -531,13 +533,13 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		3:
-			if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
 				print("from three to zero")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
 				profileNum = 0
 				
 				# overwrite save data
@@ -548,12 +550,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
 				print("from three to one")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
 				profileNum = 1
 				
 				# overwrite save data
@@ -564,12 +566,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
 				print("from three to two")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
 				profileNum = 2
 				
 				# overwrite save data
@@ -580,12 +582,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
 				print("from three to four")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
 				profileNum = 4
 				
 				# overwrite save data
@@ -596,13 +598,13 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		4:
-			if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
 				print("from four to zero")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
 				profileNum = 0
 				
 				# overwrite save data
@@ -613,12 +615,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
 				print("from four to one")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
 				profileNum = 1
 				
 				# overwrite save data
@@ -629,12 +631,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
 				print("from four to two")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
 				profileNum = 2
 				
 				# overwrite save data
@@ -645,12 +647,12 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-			if $ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+			if $MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
 				print("from four to three")
 				# update ingame stuff
-				$ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
+				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
 				profileNum = 3
 				
 				# overwrite save data
@@ -661,66 +663,66 @@ func _onProfileSwitchButton_pressed():
 				editedSave.close()
 				
 				#exit the panel
-				$ProfilePanel.hide()
-				$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+				$MainMenu/ProfilePanel.hide()
+				$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
 
 func _on_ProfileEditButton_pressed():
 	profileMakerPressable = false
 	isSaving = false
 	
-	$NewProfileMaker/Control/ProfileMakerHeader/Label.text = "Edit Name"
-	$NewProfileMaker/Control/MakeProfile.text = "Change Profile"
+	$MainMenu/NewProfileMaker/Control/ProfileMakerHeader/Label.text = "Edit Name"
+	$MainMenu/NewProfileMaker/Control/MakeProfile.text = "Change Profile"
 	
 	#see what button got pressed
-	if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
+	if $MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
 		pressedButton = 0
-	if $ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
+	if $MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
 		pressedButton = 1
-	if $ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
+	if $MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
 		pressedButton = 2
-	if $ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
+	if $MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
 		pressedButton = 3
-	if $ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
+	if $MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
 		pressedButton = 4
 	
 	# unpress all profiles
-	$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-	$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-	$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-	$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-	$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+	$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+	$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+	$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+	$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+	$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 	
-	$NewProfileMaker.show()
-	$NewProfileMaker/Control/ProfileMakerExit.show()
+	$MainMenu/NewProfileMaker.show()
+	$MainMenu/NewProfileMaker/Control/ProfileMakerExit.show()
 
 func _on_ProfileDeleteButton_pressed():
 	profileMakerPressable = false
 	
 	#see what button got pressed
-	if $ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
+	if $MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
 		pressedButton = 0
-	if $ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
+	if $MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
 		pressedButton = 1
-	if $ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
+	if $MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
 		pressedButton = 2
-	if $ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
+	if $MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
 		pressedButton = 3
-	if $ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
+	if $MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
 		pressedButton = 4
 	
 	# unpress all profiles
-	$ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
-	$ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
-	$ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
-	$ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
-	$ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
+	$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
+	$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
+	$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
+	$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
+	$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 	
-	$DeleteConfirmation.show()
-	$ProfilePanel.hide()
+	$MainMenu/DeleteConfirmation.show()
+	$MainMenu/ProfilePanel.hide()
 
 func _on_DeleteProfileNoButton_pressed():
-	$DeleteConfirmation.hide()
-	$ProfilePanel.show()
+	$MainMenu/DeleteConfirmation.hide()
+	$MainMenu/ProfilePanel.show()
 
 func _on_DeleteProfileYesButton_pressed():
 	print("delete")
@@ -746,23 +748,23 @@ func _on_DeleteProfileYesButton_pressed():
 		for n in range(5):
 			if n < save_data["data"].size() - save_data["data"].count(null):
 				# for available profiles
-				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data["data"][n]["name"]
-				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = false
+				get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = save_data["data"][n]["name"]
+				get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = false
 			else:
 				# for unavailable profiles
-				get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = true
+				get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").disabled = true
 				match n:
 					0:
-						get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = "(Player One)"
+						get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = "(Player One)"
 					1:
-						get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = "(Player Two)"
+						get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = "(Player Two)"
 					2:
-						get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = "(Player Three)"
+						get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = "(Player Three)"
 					3:
-						get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = "(Player Four)"
+						get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = "(Player Four)"
 					4:
-						get_node("ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = "(Player Five)"
-		$ChangeProfile/ProfileName/Label.text = save_data["data"][profileNum]["name"]
+						get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(n)+"/Button").text = "(Player Five)"
+		$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][profileNum]["name"]
 		
 		# overwrite save file
 		var editedSave = File.new()
@@ -771,8 +773,8 @@ func _on_DeleteProfileYesButton_pressed():
 		editedSave.close()
 		
 		# finishing touches
-		$DeleteConfirmation.hide()
-		$ProfilePanel.show()
+		$MainMenu/DeleteConfirmation.hide()
+		$MainMenu/ProfilePanel.show()
 	elif save_data["data"][profileNum] == null && (save_data["data"].size() - save_data["data"].count(null)) == 0: # if there are no profiles left make a new one
 		print("no profiles left")
 		
@@ -782,8 +784,8 @@ func _on_DeleteProfileYesButton_pressed():
 		editedSave.store_line(JSON.print(save_data))
 		editedSave.close()
 		
-		$DeleteConfirmation.hide()
-		$ProfilePanel.hide()
+		$MainMenu/DeleteConfirmation.hide()
+		$MainMenu/ProfilePanel.hide()
 		_ready()
 	
 class customProfileSorter: # this is for sorting profiles after one gets deleted
@@ -791,3 +793,9 @@ class customProfileSorter: # this is for sorting profiles after one gets deleted
 		if a != null && b == null:
 			return true
 		return false
+
+# all functions from this point on are for the credits scene
+func _on_ReturnToMainMenuFromCreditsButton_pressed():
+	$MainMenu.show()
+	$MainMenu/Settings.show()
+	$Credits.hide()
