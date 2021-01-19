@@ -9,6 +9,8 @@ var playerName
 var profileNum
 var isSaving = true
 var pressedButton
+var musicVol
+var sfxVol
 
 func _ready():
 	$Music.playing = true
@@ -27,7 +29,7 @@ func _ready():
 		
 		var newCreateFile = File.new()
 		newCreateFile.open("res://save_data.json", File.WRITE)
-		newCreateFile.store_string("{\"profileNum\":0,\"data\":[null,null,null,null,null]}")
+		newCreateFile.store_string("{\"profileNum\":0, \"settings\": {\"music\": 100, \"sfx\": 100}, \"data\":[null,null,null,null,null]}")
 		newCreateFile.close()
 		newReadFile.close()
 	else:
@@ -42,6 +44,8 @@ func _ready():
 	file.close()
 	var save_data = json_data.result["data"]
 	profileNum = int(json_data.result["profileNum"])
+	musicVol = json_data.result["settings"]["music"]
+	sfxVol = json_data.result["settings"]["sfx"]
 	
 	if save_data.count(null) == 5:
 		# if the save file is empty, open the prompt that will allow for creation of a new profile
@@ -67,6 +71,46 @@ func _ready():
 		settingsPressable = true
 		exitPressable = true
 		profilePressable = true
+		
+		# edit in-game settings
+		$MainMenu/Settings/Control/MusicVolume/MusicVolumeSlider/HSlider.value = musicVol
+		
+# all functions from this point on are for vital settings functions
+func _on_MusicVolume_changed(musicVolume):
+	musicVolume = int(musicVolume)
+	
+	# change volume
+	if musicVolume <= 100 && musicVolume > 80:
+		$Music.stream_paused = false
+		$Music.volume_db = 0
+	elif musicVolume <= 80 && musicVolume > 60:
+		$Music.stream_paused = false
+		$Music.volume_db = -10
+	elif musicVolume <= 60 && musicVolume > 40:
+		$Music.stream_paused = false
+		$Music.volume_db = -20
+	elif musicVolume <= 40 && musicVolume > 20:
+		$Music.stream_paused = false
+		$Music.volume_db = -30
+	elif musicVolume <= 20 && musicVolume > 0:
+		$Music.stream_paused = false
+		$Music.volume_db = -40
+	elif musicVolume == 0:
+		$Music.stream_paused = true
+	
+	# open the save file
+	var file = File.new()
+	file.open("res://save_data.json", File.READ)
+	var json_data = JSON.parse(file.get_as_text())
+	file.close()
+	var save_data = json_data.result
+	
+	# edit the save file
+	save_data["settings"]["music"] = musicVolume
+	var editedSave = File.new()
+	editedSave.open("res://save_data.json", File.WRITE)
+	editedSave.store_line(JSON.print(save_data))
+	editedSave.close()
 
 # all functions from this point on are for the main menu
 func _on_Start_Button_pressed():
@@ -184,7 +228,6 @@ func _on_MakeProfileButton_pressed():
 			else:
 				$MainMenu/NewProfileMaker/Control/ProfileMakerWarning/Label.text = "Name cannot be blank"
 	elif isSaving == false: # this is for when a profile is edited
-		print("yeet")
 		playerName = $MainMenu/NewProfileMaker/Control/ProfileMakerInput.text
 		if playerName.length() > 0:
 			save_data["data"][pressedButton]["name"] = playerName
@@ -198,7 +241,6 @@ func _on_MakeProfileButton_pressed():
 			# change stuff to accomodate for the changed profile
 			get_node("MainMenu/ProfilePanel/Control/ProfileList/Profile"+str(pressedButton)+"/Button").text = save_data["data"][pressedButton]["name"]
 			
-			print(profileNum)
 			for _n in range(5):
 				if profileNum == pressedButton:
 					$MainMenu/ChangeProfile/ProfileName/Label.text = playerName
@@ -287,7 +329,6 @@ func _on_ProfileThreeButton_toggled(button_pressed):
 		if profileNum != 3:
 			$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = false
 	else:
-		print("goodbye")
 		$MainMenu/ProfilePanel/Control/ProfileCreate/Button.disabled = false
 		$MainMenu/ProfilePanel/Control/ProfileSwitch/Button.disabled = true
 		$MainMenu/ProfilePanel/Control/ProfileDelete/Button.disabled = true
@@ -314,6 +355,7 @@ func _on_ProfileFourButton_toggled(button_pressed):
 
 func _on_CreateProfileButton_pressed():
 	profileMakerPressable = false
+	isSaving = true
 	$MainMenu/NewProfileMaker/Control/ProfileMakerHeader/Label.text = "Enter Your Name"
 	$MainMenu/NewProfileMaker/Control/MakeProfile.text = "Create Profile"
 	
@@ -343,7 +385,6 @@ func _onProfileSwitchButton_pressed():
 	match profileNum:
 		0:
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
-				print("from zero to one")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
 				profileNum = 1
@@ -359,7 +400,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
-				print("from zero to two")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
 				profileNum = 2
@@ -375,7 +415,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
-				print("from zero to three")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
 				profileNum = 3
@@ -391,7 +430,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
-				print("from zero to four")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
 				profileNum = 4
@@ -408,7 +446,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		1:
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
-				print("from one to zero")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
 				profileNum = 0
@@ -424,7 +461,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
-				print("from one to two")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
 				profileNum = 2
@@ -440,7 +476,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
-				print("from one to three")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
 				profileNum = 3
@@ -456,7 +491,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
-				print("from one to four")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
 				profileNum = 4
@@ -473,7 +507,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		2:
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
-				print("from two to zero")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
 				profileNum = 0
@@ -489,7 +522,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
-				print("from two to one")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
 				profileNum = 1
@@ -505,7 +537,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
-				print("from two to three")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
 				profileNum = 3
@@ -521,7 +552,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
-				print("from two to four")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
 				profileNum = 4
@@ -538,7 +568,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		3:
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
-				print("from three to zero")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
 				profileNum = 0
@@ -554,7 +583,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
-				print("from three to one")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
 				profileNum = 1
@@ -570,7 +598,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
-				print("from three to two")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
 				profileNum = 2
@@ -586,7 +613,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed == true:
-				print("from three to four")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][4]["name"]
 				profileNum = 4
@@ -603,7 +629,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile4/Button.pressed = false
 		4:
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed == true:
-				print("from four to zero")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][0]["name"]
 				profileNum = 0
@@ -619,7 +644,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed == true:
-				print("from four to one")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][1]["name"]
 				profileNum = 1
@@ -635,7 +659,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile1/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed == true:
-				print("from four to two")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][2]["name"]
 				profileNum = 2
@@ -651,7 +674,6 @@ func _onProfileSwitchButton_pressed():
 				$MainMenu/ProfilePanel.hide()
 				$MainMenu/ProfilePanel/Control/ProfileList/Profile2/Button.pressed = false
 			if $MainMenu/ProfilePanel/Control/ProfileList/Profile3/Button.pressed == true:
-				print("from four to three")
 				# update ingame stuff
 				$MainMenu/ChangeProfile/ProfileName/Label.text = save_data["data"][3]["name"]
 				profileNum = 3
@@ -724,9 +746,9 @@ func _on_ProfileDeleteButton_pressed():
 func _on_DeleteProfileNoButton_pressed():
 	$MainMenu/DeleteConfirmation.hide()
 	$MainMenu/ProfilePanel.show()
+	profileMakerPressable = true
 
 func _on_DeleteProfileYesButton_pressed():
-	print("delete")
 	# read save file
 	var file = File.new()
 	file.open("res://save_data.json", File.READ)
@@ -735,11 +757,14 @@ func _on_DeleteProfileYesButton_pressed():
 	var save_data = json_data.result
 	
 	# edit save file and extract stuff from it
+	print(pressedButton)
 	save_data["data"][pressedButton] = null
 	save_data["data"].sort_custom(customProfileSorter, "sort")
 	profileNum = save_data["profileNum"]
+	print("delete")
+	print(profileNum)
+	print(save_data["data"][pressedButton])
 	
-	print("what do now")
 	if save_data["data"][profileNum] == null && (save_data["data"].size() - save_data["data"].count(null)) > 0: # do stuff normally if there are some profiles left
 		print("many profiles left")
 		profileNum -= 1

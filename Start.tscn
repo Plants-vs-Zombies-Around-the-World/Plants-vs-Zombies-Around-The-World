@@ -91,41 +91,63 @@ __meta__ = {
 }
 
 [node name="SettingsHeader" type="VBoxContainer" parent="MainMenu/Settings/Control"]
-margin_left = 18.0
-margin_right = 365.0
-margin_bottom = 36.0
+margin_left = 20.0
+margin_right = 356.0
+margin_bottom = 33.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="MainMenu/Settings/Control/SettingsHeader"]
-margin_top = 11.0
-margin_right = 347.0
-margin_bottom = 25.0
+margin_top = 9.0
+margin_right = 336.0
+margin_bottom = 23.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Settings"
 align = 1
 uppercase = true
 
-[node name="SettingsText" type="VBoxContainer" parent="MainMenu/Settings/Control"]
-margin_left = 24.0
-margin_top = 36.0
-margin_right = 360.0
-margin_bottom = 72.0
+[node name="MusicVolume" type="Control" parent="MainMenu/Settings/Control"]
+margin_left = 20.0
+margin_top = 33.0
+margin_right = 356.0
+margin_bottom = 80.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="MainMenu/Settings/Control/SettingsText"]
-margin_right = 336.0
-margin_bottom = 31.0
-text = "theres barely anything to show here, and idk how to make a settings module"
-align = 1
-autowrap = true
+[node name="MusicVolumeLabel" type="VBoxContainer" parent="MainMenu/Settings/Control/MusicVolume"]
+margin_right = 40.0
+margin_bottom = 40.0
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label" type="Label" parent="MainMenu/Settings/Control/MusicVolume/MusicVolumeLabel"]
+margin_top = 13.0
+margin_right = 40.0
+margin_bottom = 27.0
+text = "Music"
+align = 1
+valign = 1
+
+[node name="MusicVolumeSlider" type="VBoxContainer" parent="MainMenu/Settings/Control/MusicVolume"]
+margin_left = 48.0
+margin_top = -1.0
+margin_right = 336.0
+margin_bottom = 35.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSlider" type="HSlider" parent="MainMenu/Settings/Control/MusicVolume/MusicVolumeSlider"]
+margin_top = 10.0
+margin_right = 288.0
+margin_bottom = 26.0
+value = 100.0
 
 [node name="SettingsButtons" type="Control" parent="MainMenu/Settings/Control"]
 margin_left = 48.0
@@ -779,6 +801,7 @@ stream = ExtResource( 5 )
 [connection signal="pressed" from="MainMenu/Settings Button" to="." method="_on_Settings_Button_pressed"]
 [connection signal="pressed" from="MainMenu/Exit Button" to="." method="_on_Exit_Button_pressed"]
 [connection signal="pressed" from="MainMenu/Settings/Control/SettingsExit/ExitSettings" to="." method="_on_SettingsExitButton_pressed"]
+[connection signal="value_changed" from="MainMenu/Settings/Control/MusicVolume/MusicVolumeSlider/HSlider" to="." method="_on_MusicVolume_changed"]
 [connection signal="pressed" from="MainMenu/Settings/Control/SettingsButtons/SettingsCredits/Button" to="." method="_on_CreditsButton_pressed"]
 [connection signal="pressed" from="MainMenu/Settings/Control/SettingsButtons/SettingsDiscord/Button" to="." method="_on_DiscordButton_pressed"]
 [connection signal="pressed" from="MainMenu/ExitConfirmation/Control/ExitConfirm/ExitConfirmYes/Button" to="." method="_on_ExitYesButton_pressed"]
