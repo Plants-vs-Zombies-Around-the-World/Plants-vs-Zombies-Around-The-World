@@ -4,7 +4,8 @@
 			"type": "tutorialLevel",
 			"stage": "suburbia",
 			"waves": 1,
-			"zombieGroupDelay": 5
+			"zombieGroupDelay": 15,
+			"startingSun": 50
 		},
 		"zombies": [
 			{
@@ -22,16 +23,6 @@
 		],
 		"levelGameplay": {
 			"0": [
-				{
-					"events": {
-						"sendZombies": [
-							{
-								"type": "basicBrowncoat",
-								"lane": "random"
-							}
-						]
-					}
-				},
 				{
 					"events": {
 						"sendZombies": [
@@ -75,19 +66,115 @@
 							},
 							{
 								"type": "basicBrowncoat",
+								"lane": 3
+							}
+						]
+					}
+				},
+				{
+					"events": {
+						"sendZombies": [
+							{
+								"type": "coneheadBrowncoat",
 								"lane": 1
 							},
 							{
 								"type": "basicBrowncoat",
-								"lane": 3
+								"lane": 2
+							}
+						]
+					}
+				},
+				{
+					"events": {
+						"sendZombies": [
+							{
+								"type": "coneheadBrowncoat",
+								"lane": "random"
+							},
+							{
+								"type": "basicBrowncoat",
+								"lane": "random"
+							},
+							{
+								"type": "basicBrowncoat",
+								"lane": "random"
+							}
+						]
+					}
+				},
+				{
+					"events": {
+						"sendZombies": [
+							{
+								"type": "coneheadBrowncoat",
+								"lane": 0
+							},
+							{
+								"type": "bucketheadBrowncoat",
+								"lane": "random"
+							},
+							{
+								"type": "coneheadBrowncoat",
+								"lane": 4
 							}
 						]
 					}
 				}
 			],
 			"final": [
-				
+				{
+					"events": {
+						"sendZombies": [
+							{
+								"type": "coneheadBrowncoat",
+								"lane": "random"
+							},
+							{
+								"type": "coneheadBrowncoat",
+								"lane": "random"
+							},
+							{
+								"type": "coneheadBrowncoat",
+								"lane": "random"
+							},
+							{
+								"type": "basicBrowncoat",
+								"lane": "random"
+							},
+							{
+								"type": "basicBrowncoat",
+								"lane": "random"
+							},
+							{
+								"type": "basicBrowncoat",
+								"lane": "random"
+							},
+							{
+								"type": "basicBrowncoat",
+								"lane": "random"
+							},
+							{
+								"type": "basicBrowncoat",
+								"lane": "random"
+							},
+							{
+								"type": "bucketheadBrowncoat",
+								"lane": "random"
+							}
+						]
+					}
+				}
 			]
+		},
+		"postLevelData": {
+			"reward": {
+				"type": "plant",
+				"name": "cabbagepult"
+			},
+			"nextLevel": {
+				"load": "SuburbiaLevel2"
+			}
 		}
 	}
 }

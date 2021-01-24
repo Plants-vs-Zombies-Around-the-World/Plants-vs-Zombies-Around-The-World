@@ -11,10 +11,17 @@ var isSaving = true
 var pressedButton
 var musicVol
 var sfxVol
+var mainMenuLevelsPressable = true
+var settingsLevelsPressable = true
 
 func _ready():
 	$Music.playing = true
-	
+	$MainMenu.show()
+	$Credits.hide()
+	$LevelBrowser.hide()
+	_onMakeFirstProfile()
+
+func _onMakeFirstProfile():
 	# make most of the buttons unpressable
 	playPressable = false
 	settingsPressable = false
@@ -74,7 +81,8 @@ func _ready():
 		
 		# edit in-game settings
 		$MainMenu/Settings/Control/MusicVolume/MusicVolumeSlider/HSlider.value = musicVol
-		
+		$MainMenu/Settings/Control/SFXVolume/SFXVolumeSlider/HSlider.value = sfxVol
+
 # all functions from this point on are for vital settings functions
 func _on_MusicVolume_changed(musicVolume):
 	musicVolume = int(musicVolume)
@@ -112,61 +120,107 @@ func _on_MusicVolume_changed(musicVolume):
 	editedSave.store_line(JSON.print(save_data))
 	editedSave.close()
 
+func _on_SFXVolume_changed(sfxVolume):
+	# open the save file
+	var file = File.new()
+	file.open("res://save_data.json", File.READ)
+	var json_data = JSON.parse(file.get_as_text())
+	file.close()
+	var save_data = json_data.result
+	
+	# edit the save file
+	save_data["settings"]["sfx"] = sfxVolume
+	var editedSave = File.new()
+	editedSave.open("res://save_data.json", File.WRITE)
+	editedSave.store_line(JSON.print(save_data))
+	editedSave.close()
+
 # all functions from this point on are for the main menu
+func _on_EnterMainMenu_():
+	# get the save file
+	var file = File.new()
+	file.open("res://save_data.json", File.READ)
+	var data = file.get_as_text()
+	var json_data = JSON.parse(data)
+	file.close()
+	musicVol = json_data.result["settings"]["music"]
+	sfxVol = json_data.result["settings"]["sfx"]
+	
+	# change settings here too
+	$MainMenu/Settings/Control/MusicVolume/MusicVolumeSlider/HSlider.value = musicVol
+	$MainMenu/Settings/Control/SFXVolume/SFXVolumeSlider/HSlider.value = sfxVol
+	
 func _on_Start_Button_pressed():
 	if playPressable == true:
-		print("playin le game")
+		$ButtonSFX1.play()
+		$LevelBrowser.show()
+		$MainMenu.hide()
 
 func _on_Settings_Button_pressed():
 	if settingsPressable == true:
+		$ButtonSFX1.play()
 		$MainMenu/Settings.show()
+		settingsPressable = false
 		exitPressable = false
 		playPressable = false
 		profilePressable = false
 
 func _on_Exit_Button_pressed():
 	if exitPressable == true:
+		$ButtonSFX1.play()
 		$MainMenu/ExitConfirmation.show()
+		exitPressable = false
 		settingsPressable = false
 		playPressable = false
 		profilePressable = false
 
 func _on_SettingsExitButton_pressed():
+	$ButtonSFX2.play()
 	$MainMenu/Settings.hide()
+	settingsPressable = true
 	exitPressable = true
 	playPressable = true
 	profilePressable = true
 
 func _on_ExitNoButton_pressed():
+	$ButtonSFX2.play()
 	$MainMenu/ExitConfirmation.hide()
+	exitPressable = true
 	settingsPressable = true
 	playPressable = true
 	profilePressable = true
 
 func _on_ExitYesButton_pressed():
+	$ButtonSFX2.play()
 	get_tree().quit()
 
 func _on_CreditsButton_pressed():
+	$ButtonSFX1.play()
 	$MainMenu.hide()
 	$MainMenu/Settings.hide()
 	$Credits.show()
 
 func _on_DiscordButton_pressed():
-# warning-ignore:return_value_discarded
+	$ButtonSFX1.play()
+	# warning-ignore:return_value_discarded
 	OS.shell_open("https://discord.gg/NnhXQgEqSp")
 
 func _on_ProfileButton_pressed():
 	if profilePressable == true:
+		$ButtonSFX1.play()
 		$MainMenu/ProfilePanel.show()
+		profilePressable = false
 		settingsPressable = false
 		playPressable = false
 		exitPressable = false
 
 func _on_ProfileExitButton_pressed():
 	if profileMakerPressable == true:
+		$ButtonSFX2.play()
 		$MainMenu/ProfilePanel.hide()
 		$MainMenu/ProfilePanel/Control/ProfileList/Profile0/Button.pressed = false
 		$MainMenu/ProfilePanel/Control/ProfileMaxWarning/Label.text = ""
+		profilePressable = true
 		settingsPressable = true
 		playPressable = true
 		exitPressable = true
@@ -812,7 +866,7 @@ func _on_DeleteProfileYesButton_pressed():
 		
 		$MainMenu/DeleteConfirmation.hide()
 		$MainMenu/ProfilePanel.hide()
-		_ready()
+		_onMakeFirstProfile()
 	
 class customProfileSorter: # this is for sorting profiles after one gets deleted
 	static func sort(a, b):
@@ -820,8 +874,43 @@ class customProfileSorter: # this is for sorting profiles after one gets deleted
 			return true
 		return false
 
-# all functions from this point on are for the credits scene
+# all functions from this point on are for the credits
 func _on_ReturnToMainMenuFromCreditsButton_pressed():
+	$ButtonSFX2.play()
 	$MainMenu.show()
 	$MainMenu/Settings.show()
 	$Credits.hide()
+
+# all functions from this point on are for the level browser
+func _on_EnterLevelBrowser_():
+	# get the save file
+	var file = File.new()
+	file.open("res://save_data.json", File.READ)
+	var data = file.get_as_text()
+	var json_data = JSON.parse(data)
+	file.close()
+	musicVol = json_data.result["settings"]["music"]
+	sfxVol = json_data.result["settings"]["sfx"]
+	
+	# change settings here too
+	$LevelBrowser/Settings/Control/MusicVolume/MusicVolumeSlider/HSlider.value = musicVol
+	$LevelBrowser/Settings/Control/SFXVolume/SFXVolumeSlider/HSlider.value = sfxVol
+
+func _on_MainMenuFromLevels_pressed():
+	if mainMenuLevelsPressable == true:
+		$ButtonSFX2.play()
+		$MainMenu.show()
+		$LevelBrowser.hide()
+
+func _on_SettingsButtonFromLevels_pressed():
+	if settingsLevelsPressable == true:
+		$ButtonSFX1.play()
+		mainMenuLevelsPressable = false
+		settingsLevelsPressable = false
+		$LevelBrowser/Settings.show()
+
+func _on_ExitSettingsFromLevels_pressed():
+	$ButtonSFX2.play()
+	$LevelBrowser/Settings.hide()
+	mainMenuLevelsPressable = true
+	settingsLevelsPressable = true

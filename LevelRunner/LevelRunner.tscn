@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="LevelRunner" type="Node2D"]
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="Reward" type="Node2D" parent="."]
+visible = false
