@@ -11,6 +11,7 @@ var isSaving = true
 var pressedButton
 var musicVol
 var sfxVol
+var fullscreen
 var mainMenuLevelsPressable = true
 var settingsLevelsPressable = true
 
@@ -36,7 +37,7 @@ func _onMakeFirstProfile():
 		
 		var newCreateFile = File.new()
 		newCreateFile.open("res://save_data.json", File.WRITE)
-		newCreateFile.store_string("{\"profileNum\":0, \"settings\": {\"music\": 100, \"sfx\": 100}, \"data\":[null,null,null,null,null]}")
+		newCreateFile.store_string("{\"profileNum\":0, \"settings\": {\"music\": 100, \"sfx\": 100, \"fullscreen\": true}, \"data\":[null,null,null,null,null]}")
 		newCreateFile.close()
 		newReadFile.close()
 	else:
@@ -53,6 +54,7 @@ func _onMakeFirstProfile():
 	profileNum = int(json_data.result["profileNum"])
 	musicVol = json_data.result["settings"]["music"]
 	sfxVol = json_data.result["settings"]["sfx"]
+	fullscreen = json_data.result["settings"]["fullscreen"]
 	
 	if save_data.count(null) == 5:
 		# if the save file is empty, open the prompt that will allow for creation of a new profile
@@ -82,6 +84,7 @@ func _onMakeFirstProfile():
 		# edit in-game settings
 		$MainMenu/Settings/Control/MusicVolume/MusicVolumeSlider/HSlider.value = musicVol
 		$MainMenu/Settings/Control/SFXVolume/SFXVolumeSlider/HSlider.value = sfxVol
+		$MainMenu/Settings/Control/Fullscreen/FullscreenTick/CheckBox.pressed = fullscreen
 
 # all functions from this point on are for vital settings functions
 func _on_MusicVolume_changed(musicVolume):
@@ -121,6 +124,38 @@ func _on_MusicVolume_changed(musicVolume):
 	editedSave.close()
 
 func _on_SFXVolume_changed(sfxVolume):
+	sfxVolume = int(sfxVolume)
+	
+	# change volume
+	if sfxVolume <= 100 && sfxVolume > 80:
+		$ButtonSFX1.stream_paused = false
+		$ButtonSFX2.stream_paused = false
+		$ButtonSFX1.volume_db = 0
+		$ButtonSFX2.volume_db = 0
+	elif sfxVolume <= 80 && sfxVolume > 60:
+		$ButtonSFX1.stream_paused = false
+		$ButtonSFX2.stream_paused = false
+		$ButtonSFX1.volume_db = -10
+		$ButtonSFX2.volume_db = -10
+	elif sfxVolume <= 60 && sfxVolume > 40:
+		$ButtonSFX1.stream_paused = false
+		$ButtonSFX2.stream_paused = false
+		$ButtonSFX1.volume_db = -20
+		$ButtonSFX2.volume_db = -20
+	elif sfxVolume <= 40 && sfxVolume > 20:
+		$ButtonSFX1.stream_paused = false
+		$ButtonSFX2.stream_paused = false
+		$ButtonSFX1.volume_db = -30
+		$ButtonSFX2.volume_db = -30
+	elif sfxVolume <= 20 && sfxVolume > 0:
+		$ButtonSFX1.stream_paused = false
+		$ButtonSFX2.stream_paused = false
+		$ButtonSFX1.volume_db = -40
+		$ButtonSFX1.volume_db = -40
+	elif sfxVolume == 0:
+		$ButtonSFX1.stream_paused = true
+		$ButtonSFX2.stream_paused = true
+	
 	# open the save file
 	var file = File.new()
 	file.open("res://save_data.json", File.READ)
@@ -130,6 +165,26 @@ func _on_SFXVolume_changed(sfxVolume):
 	
 	# edit the save file
 	save_data["settings"]["sfx"] = sfxVolume
+	var editedSave = File.new()
+	editedSave.open("res://save_data.json", File.WRITE)
+	editedSave.store_line(JSON.print(save_data))
+	editedSave.close()
+
+func _on_Fullscreen_toggled(fullscreenPressed):
+	if fullscreenPressed == true:
+		OS.window_fullscreen = true
+	elif fullscreenPressed == false:
+		OS.window_fullscreen = false
+		
+	# open the save file
+	var file = File.new()
+	file.open("res://save_data.json", File.READ)
+	var json_data = JSON.parse(file.get_as_text())
+	file.close()
+	var save_data = json_data.result
+	
+	# edit the save file
+	save_data["settings"]["fullscreen"] = fullscreenPressed
 	var editedSave = File.new()
 	editedSave.open("res://save_data.json", File.WRITE)
 	editedSave.store_line(JSON.print(save_data))
@@ -145,10 +200,12 @@ func _on_EnterMainMenu_():
 	file.close()
 	musicVol = json_data.result["settings"]["music"]
 	sfxVol = json_data.result["settings"]["sfx"]
+	fullscreen = json_data.result["settings"]["fullscreen"]
 	
 	# change settings here too
 	$MainMenu/Settings/Control/MusicVolume/MusicVolumeSlider/HSlider.value = musicVol
 	$MainMenu/Settings/Control/SFXVolume/SFXVolumeSlider/HSlider.value = sfxVol
+	$MainMenu/Settings/Control/Fullscreen/FullscreenTick/CheckBox.pressed = fullscreen
 	
 func _on_Start_Button_pressed():
 	if playPressable == true:
@@ -891,10 +948,12 @@ func _on_EnterLevelBrowser_():
 	file.close()
 	musicVol = json_data.result["settings"]["music"]
 	sfxVol = json_data.result["settings"]["sfx"]
+	fullscreen = json_data.result["settings"]["fullscreen"]
 	
 	# change settings here too
 	$LevelBrowser/Settings/Control/MusicVolume/MusicVolumeSlider/HSlider.value = musicVol
 	$LevelBrowser/Settings/Control/SFXVolume/SFXVolumeSlider/HSlider.value = sfxVol
+	$LevelBrowser/Settings/Control/Fullscreen/FullscreenTick/CheckBox.pressed = fullscreen
 
 func _on_MainMenuFromLevels_pressed():
 	if mainMenuLevelsPressable == true:
