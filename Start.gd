@@ -213,6 +213,8 @@ func _on_Start_Button_pressed():
 		$ButtonSFX1.play()
 		$LevelBrowser.show()
 		$MainMenu.hide()
+		
+		get_node("LevelBrowser/Levels").scrollable = true
 
 func _on_Settings_Button_pressed():
 	if settingsPressable == true:
@@ -961,6 +963,8 @@ func _on_MainMenuFromLevels_pressed():
 		$ButtonSFX2.play()
 		$MainMenu.show()
 		$LevelBrowser.hide()
+		
+		get_node("LevelBrowser/Levels").scrollable = false
 
 func _on_SettingsButtonFromLevels_pressed():
 	if settingsLevelsPressable == true:
