@@ -16,7 +16,7 @@ func _ready():
 	# read file
 	var file = File.new()
 	file.open("levelpath", File.READ)
-	levelPath = "res://Levels/"+file.get_as_text()
+	levelPath = "res://"+file.get_as_text()
 	file.close()
 	print(levelPath)
 	
