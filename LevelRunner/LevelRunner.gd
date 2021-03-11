@@ -13,18 +13,37 @@ var sfxVol
 var fullscreen
 
 func _ready():
-	# _readLevelJson()
+	# read file
+	var file = File.new()
+	file.open("levelpath", File.READ)
+	levelPath = "res://Levels/"+file.get_as_text()
+	file.close()
+	print(levelPath)
+	
 	_setSettings()
+	_readLevelJson()
 
 func _on_ExitLevelButton_pressed():
-	pass
+	$Level/LeaveConfirmation.show()
+	$Level/Settings.hide()
+	$ButtonSFX2.play()
+
+func _on_ExitLevelConfirmYes_pressed():
+	get_tree().change_scene("res://Start.tscn")
+	
+func _on_ExitLevelConfirmNo_pressed():
+	$Level/Settings.show()
+	$Level/LeaveConfirmation.hide()
+	$ButtonSFX1.play()
 
 # all functions from this point on are for settings
 func _on_SettingsButton_pressed():
 	$Level/Settings.show()
+	$PauseEffect.play()
 
 func _on_SettingsButtonExit_pressed():
 	$Level/Settings.hide()
+	$ButtonSFX2.play()
 
 func _setSettings():
 	# read file
@@ -80,17 +99,54 @@ func _on_SFXVolume_changed(sfxVolume):
 	
 	# change volume
 	if sfxVolume <= 100 && sfxVolume > 80:
-		pass
+		$PauseEffect.volume_db = -10
+		$PauseEffect.stream_paused = false
+		
+		$ButtonSFX1.volume_db = 0
+		$ButtonSFX1.stream_paused = false
+		
+		$ButtonSFX2.volume_db = 0
+		$ButtonSFX2.stream_paused = false
 	elif sfxVolume <= 80 && sfxVolume > 60:
-		pass
+		$PauseEffect.volume_db = -20
+		$PauseEffect.stream_paused = false
+		
+		$ButtonSFX1.volume_db = -10
+		$ButtonSFX1.stream_paused = false
+		
+		$ButtonSFX2.volume_db = -10
+		$ButtonSFX2.stream_paused = false
 	elif sfxVolume <= 60 && sfxVolume > 40:
-		pass
+		$PauseEffect.volume_db = -30
+		$PauseEffect.stream_paused = false
+		
+		$ButtonSFX1.volume_db = -20
+		$ButtonSFX1.stream_paused = false
+		
+		$ButtonSFX2.volume_db = -20
+		$ButtonSFX2.stream_paused = false
 	elif sfxVolume <= 40 && sfxVolume > 20:
-		pass
+		$PauseEffect.volume_db = -40
+		$PauseEffect.stream_paused = false
+		
+		$ButtonSFX1.volume_db = -30
+		$ButtonSFX1.stream_paused = false
+		
+		$ButtonSFX2.volume_db = -30
+		$ButtonSFX2.stream_paused = false
 	elif sfxVolume <= 20 && sfxVolume > 0:
-		pass
+		$PauseEffect.volume_db = -50
+		$PauseEffect.stream_paused = false
+		
+		$ButtonSFX1.volume_db = -40
+		$ButtonSFX1.stream_paused = false
+		
+		$ButtonSFX2.volume_db = -40
+		$ButtonSFX2.stream_paused = false
 	elif sfxVolume == 0:
-		pass
+		$PauseEffect.stream_paused = true
+		$ButtonSFX1.stream_paused = true
+		$ButtonSFX2.stream_paused = true
 	
 	# open the save file
 	var file = File.new()
@@ -139,3 +195,6 @@ func _readLevelJson():
 	stage = data.result["ATWLevel"]["definition"]["stage"]
 	waves = int(data.result["ATWLevel"]["definition"]["waves"])
 	levelType = data.result["ATWLevel"]["definition"]["type"]
+	
+	print(sun)
+	print(stage)

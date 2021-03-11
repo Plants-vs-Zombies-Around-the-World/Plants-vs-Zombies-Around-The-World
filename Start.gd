@@ -1,5 +1,6 @@
 extends Node2D
 
+
 var playPressable = true
 var settingsPressable = true
 var exitPressable = true
@@ -973,3 +974,10 @@ func _on_ExitSettingsFromLevels_pressed():
 	$LevelBrowser/Settings.hide()
 	mainMenuLevelsPressable = true
 	settingsLevelsPressable = true
+
+func loadtest():
+	var file = File.new()
+	file.open("levelpath", File.WRITE)
+	file.store_string("SuburbiaLevel1.json")
+	file.close()
+	get_tree().change_scene("res://LevelRunner/LevelRunner.tscn")

@@ -912,7 +912,6 @@ __meta__ = {
 }
 
 [node name="Settings" type="PopupPanel" parent="LevelBrowser"]
-visible = true
 margin_left = 336.0
 margin_top = 144.0
 margin_right = 720.0
@@ -1099,6 +1098,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Button" type="Button" parent="LevelBrowser"]
+margin_left = 96.0
+margin_top = 288.0
+margin_right = 165.0
+margin_bottom = 308.0
+text = "LoadTest"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 
@@ -1142,3 +1151,4 @@ stream = ExtResource( 7 )
 [connection signal="value_changed" from="LevelBrowser/Settings/Control/MusicVolume/MusicVolumeSlider/HSlider" to="." method="_on_MusicVolume_changed"]
 [connection signal="value_changed" from="LevelBrowser/Settings/Control/SFXVolume/SFXVolumeSlider/HSlider" to="." method="_on_SFXVolume_changed"]
 [connection signal="toggled" from="LevelBrowser/Settings/Control/Fullscreen/FullscreenTick/CheckBox" to="." method="_on_Fullscreen_toggled"]
+[connection signal="pressed" from="LevelBrowser/Button" to="." method="loadtest"]

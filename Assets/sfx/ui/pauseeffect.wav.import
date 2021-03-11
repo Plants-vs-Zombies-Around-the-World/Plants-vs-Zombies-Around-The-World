@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/pauseeffect.wav-314af95d5aad26794ca4effc167e5c60.sample"
+
+[deps]
+
+source_file="res://Assets/sfx/ui/pauseeffect.wav"
+dest_files=[ "res://.import/pauseeffect.wav-314af95d5aad26794ca4effc167e5c60.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
