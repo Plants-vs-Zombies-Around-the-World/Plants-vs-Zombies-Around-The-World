@@ -315,6 +315,15 @@ margin_right = 60.0
 margin_bottom = 22.0
 text = "No"
 
+[node name="GameBoard" type="Node2D" parent="Level"]
+
+[node name="Seeds" type="Control" parent="Level"]
+margin_right = 96.0
+margin_bottom = 672.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Reward" type="Node2D" parent="."]
 visible = false
 

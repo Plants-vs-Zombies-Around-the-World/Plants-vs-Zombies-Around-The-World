@@ -15,7 +15,6 @@ __meta__ = {
 }
 
 [node name="MainMenu" type="Node2D" parent="."]
-visible = false
 
 [node name="Background" type="Sprite" parent="MainMenu"]
 position = Vector2( 528, 336 )
@@ -880,6 +879,7 @@ __meta__ = {
 }
 
 [node name="LevelBrowser" type="Node2D" parent="."]
+visible = false
 
 [node name="ScrollBar" type="HScrollBar" parent="LevelBrowser"]
 margin_top = 660.0
