@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Almanac/Almanac.gd" type="Script" id=1]
+
+[node name="Almanac" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="TabContainer" type="TabContainer" parent="."]
+margin_top = 12.0
+margin_right = 1056.0
+margin_bottom = 672.0
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Plants" type="Tabs" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -12.0
+margin_right = -8.0
+margin_bottom = -48.0
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlantInfo" type="Node2D" parent="TabContainer/Plants"]
+
+[node name="PlantInfoTextArea" type="ColorRect" parent="TabContainer/Plants/PlantInfo"]
+margin_left = 12.0
+margin_top = 48.0
+margin_right = 756.0
+margin_bottom = 468.0
+color = Color( 0.282353, 0.14902, 0.054902, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Plants/PlantInfo/PlantInfoTextArea"]
+margin_left = 12.0
+margin_top = 96.0
+margin_right = 732.0
+margin_bottom = 408.0
+color = Color( 0.454902, 0.34902, 0.27451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlantText" type="RichTextLabel" parent="TabContainer/Plants/PlantInfo/PlantInfoTextArea/ColorRect"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 708.0
+margin_bottom = 300.0
+bbcode_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlantsList" type="Node2D" parent="TabContainer/Plants"]
+
+[node name="Zombies" type="Tabs" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -1012.0
+margin_bottom = -604.0
+tab_align = 0
+
+[node name="ExitAlmanacButton" type="Button" parent="."]
+margin_left = 936.0
+margin_top = 12.0
+margin_right = 1044.0
+margin_bottom = 36.0
+text = "Leave Almanac"
+__meta__ = {
+"_edit_use_anchors_": false
+}

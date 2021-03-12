@@ -9,7 +9,7 @@
 [ext_resource path="res://Assets/sfx/ui/buttonpressed2.wav" type="AudioStream" id=7]
 [ext_resource path="res://Assets/levelselect/north america/suburbia tile 1.png" type="Texture" id=8]
 [ext_resource path="res://Assets/levelselect/north america/suburbia tile 2.png" type="Texture" id=9]
-[ext_resource path="res://Levels.gd" type="Script" id=10]
+[ext_resource path="res://Assets/levelselect/level list.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -886,6 +886,10 @@ __meta__ = {
 [node name="LevelBrowser" type="Node2D" parent="."]
 visible = false
 
+[node name="Background" type="Sprite" parent="LevelBrowser"]
+position = Vector2( 528, 336 )
+texture = ExtResource( 10 )
+
 [node name="MainMenuButton" type="Button" parent="LevelBrowser"]
 margin_left = 24.0
 margin_top = 12.0
@@ -902,6 +906,16 @@ margin_top = 12.0
 margin_right = 240.0
 margin_bottom = 48.0
 text = "Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AlmanacButton" type="Button" parent="LevelBrowser"]
+margin_left = 264.0
+margin_top = 12.0
+margin_right = 360.0
+margin_bottom = 48.0
+text = "Almanac"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1084,7 +1098,6 @@ pressed = true
 align = 1
 
 [node name="Levels" type="Area2D" parent="LevelBrowser"]
-script = ExtResource( 10 )
 
 [node name="Level1" type="Node2D" parent="LevelBrowser/Levels"]
 position = Vector2( 132, 420 )
@@ -1102,6 +1115,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CabbagePult" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 396, 360 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/CabbagePult"]
+texture = ExtResource( 9 )
+
 [node name="Level2" type="Node2D" parent="LevelBrowser/Levels"]
 position = Vector2( 636, 408 )
 
@@ -1118,14 +1137,262 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CabbagePult" type="Node2D" parent="LevelBrowser/Levels"]
-position = Vector2( 396, 360 )
+[node name="PlantFood" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 876, 360 )
 
-[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/CabbagePult"]
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/PlantFood"]
 texture = ExtResource( 9 )
+
+[node name="Level3" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 1164, 396 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level3"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level3"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level4" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 1452, 336 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level4"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level4"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 4"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Aspearagus" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 1728, 396 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Aspearagus"]
+texture = ExtResource( 9 )
+
+[node name="Level5" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 2028, 348 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level5"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level5"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 5"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IcebergLettuce" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 2304, 444 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/IcebergLettuce"]
+texture = ExtResource( 9 )
+
+[node name="Level6" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 2640, 420 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level6"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level6"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 6"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level7" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 2952, 372 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level7"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level7"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 7"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GraveBuster" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 3276, 312 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/GraveBuster"]
+texture = ExtResource( 9 )
+
+[node name="Level8" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 3648, 264 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level8"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level8"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 8"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SnowPea" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 3996, 264 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/SnowPea"]
+texture = ExtResource( 9 )
+
+[node name="Level9" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 4320, 312 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level9"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level9"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 9"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level10" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 4680, 360 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level10"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level10"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level11" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 5004, 420 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level11"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level11"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 11"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Beet" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 5280, 480 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Beet"]
+texture = ExtResource( 9 )
+
+[node name="Level12" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 5580, 480 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level12"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level12"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 12"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level13" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 5916, 360 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level13"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level13"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 13"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level14" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 6288, 252 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level14"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level14"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 14"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level15" type="Node2D" parent="LevelBrowser/Levels"]
+position = Vector2( 6660, 372 )
+
+[node name="Sprite" type="Sprite" parent="LevelBrowser/Levels/Level15"]
+texture = ExtResource( 8 )
+
+[node name="Button" type="Button" parent="LevelBrowser/Levels/Level15"]
+margin_left = -36.0
+margin_top = -48.0
+margin_right = 33.0
+margin_bottom = -28.0
+text = "Level 15"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelBrowser/Levels"]
 shape = SubResource( 1 )
+
+[node name="ScrollBar" type="HScrollBar" parent="LevelBrowser"]
+margin_top = 660.0
+margin_right = 1056.0
+margin_bottom = 672.0
+max_value = 6720.0
+page = 960.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
@@ -1171,3 +1438,4 @@ stream = ExtResource( 7 )
 [connection signal="value_changed" from="LevelBrowser/Settings/Control/SFXVolume/SFXVolumeSlider/HSlider" to="." method="_on_SFXVolume_changed"]
 [connection signal="toggled" from="LevelBrowser/Settings/Control/Fullscreen/FullscreenTick/CheckBox" to="." method="_on_Fullscreen_toggled"]
 [connection signal="pressed" from="LevelBrowser/Levels/Level1/Button" to="." method="loadtest"]
+[connection signal="value_changed" from="LevelBrowser/ScrollBar" to="." method="_on_ScrollBar_value_changed"]
