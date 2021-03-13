@@ -15,6 +15,7 @@ var sfxVol
 var fullscreen
 var mainMenuLevelsPressable = true
 var settingsLevelsPressable = true
+var almanacPressable = true
 
 func _ready():
 	$Music.playing = true
@@ -967,17 +968,22 @@ func _on_SettingsButtonFromLevels_pressed():
 		$ButtonSFX1.play()
 		mainMenuLevelsPressable = false
 		settingsLevelsPressable = false
+		almanacPressable = false
 		$LevelBrowser/Settings.show()
+
+func _on_AlmanacButton_pressed():
+	if almanacPressable == true:
+		get_tree().change_scene("res://Almanac/Almanac.tscn")
 
 func _on_ExitSettingsFromLevels_pressed():
 	$ButtonSFX2.play()
 	$LevelBrowser/Settings.hide()
 	mainMenuLevelsPressable = true
 	settingsLevelsPressable = true
+	almanacPressable = true
 
 func _on_ScrollBar_value_changed(value):
 	$LevelBrowser/Levels.position.x = -int(value)
-	print(value)
 
 func loadtest():
 	var file = File.new()

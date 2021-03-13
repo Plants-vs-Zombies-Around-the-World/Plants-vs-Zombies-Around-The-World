@@ -1433,6 +1433,7 @@ stream = ExtResource( 7 )
 [connection signal="visibility_changed" from="LevelBrowser" to="." method="_on_EnterLevelBrowser_"]
 [connection signal="pressed" from="LevelBrowser/MainMenuButton" to="." method="_on_MainMenuFromLevels_pressed"]
 [connection signal="pressed" from="LevelBrowser/SettingsButton" to="." method="_on_SettingsButtonFromLevels_pressed"]
+[connection signal="pressed" from="LevelBrowser/AlmanacButton" to="." method="_on_AlmanacButton_pressed"]
 [connection signal="pressed" from="LevelBrowser/Settings/Control/SettingsExit/ExitSettings" to="." method="_on_ExitSettingsFromLevels_pressed"]
 [connection signal="value_changed" from="LevelBrowser/Settings/Control/MusicVolume/MusicVolumeSlider/HSlider" to="." method="_on_MusicVolume_changed"]
 [connection signal="value_changed" from="LevelBrowser/Settings/Control/SFXVolume/SFXVolumeSlider/HSlider" to="." method="_on_SFXVolume_changed"]

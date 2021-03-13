@@ -31,3 +31,6 @@ func _ready():
 		
 	# update almanac text when you click on something
 	
+
+func _on_ExitAlmanacButton_pressed():
+	get_tree().change_scene("res://Start.tscn")
