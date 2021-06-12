@@ -212,8 +212,29 @@ func _on_EnterMainMenu_():
 func _on_Start_Button_pressed():
 	if playPressable == true:
 		$ButtonSFX1.play()
-		$LevelBrowser.show()
 		$MainMenu.hide()
+		
+		# open the save file
+		var file = File.new()
+		file.open("res://save_data.json", File.READ)
+		var json_data = JSON.parse(file.get_as_text())
+		file.close()
+		var save_data = json_data.result
+		
+		# edit the save file
+		if (save_data["data"][profileNum]["levelProgress"][0] == null):
+			save_data["data"][profileNum]["levelProgress"][0] = {"levels": [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]}
+			for n in 15:
+				save_data["data"][profileNum]["levelProgress"][0]["levels"][n] = {"finished":false}
+			
+			var editedSave = File.new()
+			editedSave.open("res://save_data.json", File.WRITE)
+			editedSave.store_line(JSON.print(save_data))
+			editedSave.close()
+			
+		else:
+			$LevelBrowser.show()
+		
 
 func _on_Settings_Button_pressed():
 	if settingsPressable == true:
@@ -308,7 +329,7 @@ func _on_MakeProfileButton_pressed():
 			if playerName.length() > 0:
 				# do stuff for save file
 				save_data["profileNum"] = save_data["data"].size()-save_data["data"].count(null)
-				save_data["data"][save_data["data"].size()-save_data["data"].count(null)] = {"name": playerName, "hasGlove": false, "plants": [0,1,2,3]}
+				save_data["data"][save_data["data"].size()-save_data["data"].count(null)] = {"name": playerName, "hasGlove": false, "plants": [0,1,2,3], "levelProgress": [null]}
 				
 				#overwrite save file
 				var editedSave = File.new()

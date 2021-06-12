@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/peashooter.png-e9b8655fc5212e0df4900c9add9de6cb.stex"
+path="res://.import/peashooter art.png-23986bc3fbf6dfa2d0319e3bba1ad76b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/plants/peashooter.png"
-dest_files=[ "res://.import/peashooter.png-e9b8655fc5212e0df4900c9add9de6cb.stex" ]
+source_file="res://Assets/plants/peashooter art.png"
+dest_files=[ "res://.import/peashooter art.png-23986bc3fbf6dfa2d0319e3bba1ad76b.stex" ]
 
 [params]
 

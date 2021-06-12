@@ -1402,6 +1402,7 @@ stream = ExtResource( 6 )
 
 [node name="ButtonSFX2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+
 [connection signal="visibility_changed" from="MainMenu" to="." method="_on_EnterMainMenu_"]
 [connection signal="pressed" from="MainMenu/Start Button" to="." method="_on_Start_Button_pressed"]
 [connection signal="pressed" from="MainMenu/Settings Button" to="." method="_on_Settings_Button_pressed"]
