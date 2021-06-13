@@ -183,12 +183,21 @@ func _on_Fullscreen_toggled(fullscreenPressed):
 	editedSave.close()
 
 func _readLevelJson():
-	# read file
+	# read level file
 	var file = File.new()
 	file.open(levelPath, File.READ)
 	var data = file.get_as_text()
 	data = JSON.parse(data)
 	file.close()
+	
+	# open the save file
+	var saveFile = File.new()
+	saveFile.open("res://save_data.json", File.READ)
+	var json_data = JSON.parse(saveFile.get_as_text())
+	saveFile.close()
+	var save_data = json_data.result
+	print(save_data["profileNum"])
+	var profileNum = save_data["profileNum"]
 
 	# load level metadata
 	sun = int(data.result["ATWLevel"]["definition"]["startingSun"])
@@ -198,3 +207,9 @@ func _readLevelJson():
 	
 	print(sun)
 	print(stage)
+	
+	# do advanced stuff depending on level type
+	if (data.result["ATWLevel"]["definition"]["type"] == "tutorialLevel" && save_data["data"][profileNum]["levelProgress"][0]["levels"][0]["finished"] == false):
+		print("hi")
+		$Level/AlertPanel.show()
+		$Level/Pause.hide()

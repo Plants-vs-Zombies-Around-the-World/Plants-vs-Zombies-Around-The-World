@@ -315,6 +315,96 @@ margin_right = 60.0
 margin_bottom = 22.0
 text = "No"
 
+[node name="AlertPanel" type="PopupPanel" parent="Level"]
+visible = true
+margin_left = 340.0
+margin_top = 144.0
+margin_right = 719.0
+margin_bottom = 336.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="Level/AlertPanel"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 375.0
+margin_bottom = 188.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AlertPanelHeader" type="VBoxContainer" parent="Level/AlertPanel/Control"]
+margin_left = -4.0
+margin_top = 8.0
+margin_right = 375.0
+margin_bottom = 32.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Level/AlertPanel/Control/AlertPanelHeader"]
+margin_top = 5.0
+margin_right = 379.0
+margin_bottom = 19.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Notice"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="AlertPanelText" type="VBoxContainer" parent="Level/AlertPanel/Control"]
+margin_left = 4.0
+margin_top = 20.0
+margin_right = 364.0
+margin_bottom = 128.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Level/AlertPanel/Control/AlertPanelText"]
+margin_top = 21.0
+margin_right = 360.0
+margin_bottom = 86.0
+text = "Because this is a fangame we're assuming that you already know how to play the game. In case you want a refresher though, you can go through an optional tutorial"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="AlertPanelButtonTutorial" type="VBoxContainer" parent="Level/AlertPanel/Control"]
+margin_left = 16.0
+margin_top = 152.0
+margin_right = 76.0
+margin_bottom = 176.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Level/AlertPanel/Control/AlertPanelButtonTutorial"]
+margin_top = 2.0
+margin_right = 60.0
+margin_bottom = 22.0
+text = "Tutorial"
+
+[node name="AlertPanelButtonSkip" type="VBoxContainer" parent="Level/AlertPanel/Control"]
+margin_left = 249.0
+margin_top = 152.0
+margin_right = 352.0
+margin_bottom = 176.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Level/AlertPanel/Control/AlertPanelButtonSkip"]
+margin_top = 2.0
+margin_right = 103.0
+margin_bottom = 22.0
+text = "I Think I'm OK"
+
 [node name="GameBoard" type="Node2D" parent="Level"]
 
 [node name="Seeds" type="Control" parent="Level"]

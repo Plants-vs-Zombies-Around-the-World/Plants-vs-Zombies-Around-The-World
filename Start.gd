@@ -332,7 +332,7 @@ func _on_MakeProfileButton_pressed():
 			if playerName.length() > 0:
 				# do stuff for save file
 				save_data["profileNum"] = save_data["data"].size()-save_data["data"].count(null)
-				save_data["data"][save_data["data"].size()-save_data["data"].count(null)] = {"name": playerName, "hasGlove": false, "plants": [0,1,2,3], "levelProgress": [null]}
+				save_data["data"][save_data["data"].size()-save_data["data"].count(null)] = {"name": playerName, "hasGlove": false, "plants": ["peashooter", "sunflower", "wall-nut", "potatomine"], "levelProgress": [null]}
 				
 				#overwrite save file
 				var editedSave = File.new()
