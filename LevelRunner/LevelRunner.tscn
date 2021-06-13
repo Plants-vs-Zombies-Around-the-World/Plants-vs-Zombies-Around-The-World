@@ -336,6 +336,7 @@ stream = ExtResource( 3 )
 [node name="PauseEffect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -10.0
+
 [connection signal="pressed" from="Level/Pause" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="Level/Settings/Control/SettingsExit/ExitSettings" to="." method="_on_SettingsButtonExit_pressed"]
 [connection signal="value_changed" from="Level/Settings/Control/MusicVolume/MusicVolumeSlider/HSlider" to="." method="_on_MusicVolume_changed"]

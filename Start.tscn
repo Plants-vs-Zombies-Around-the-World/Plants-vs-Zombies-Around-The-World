@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/logo.png" type="Texture" id=1]
 [ext_resource path="res://Start.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Assets/levelselect/north america/suburbia tile 1.png" type="Texture" id=8]
 [ext_resource path="res://Assets/levelselect/north america/suburbia tile 2.png" type="Texture" id=9]
 [ext_resource path="res://Assets/levelselect/level list.png" type="Texture" id=10]
+[ext_resource path="res://Assets/videos/pvz atw intro.ogv" type="VideoStream" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -1394,6 +1395,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="OpeningCutscene" type="Node2D" parent="."]
+visible = false
+
+[node name="VideoPlayer" type="VideoPlayer" parent="OpeningCutscene"]
+margin_right = 1056.0
+margin_bottom = 672.0
+stream = ExtResource( 11 )
+autoplay = true
+paused = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 
@@ -1441,3 +1455,4 @@ stream = ExtResource( 7 )
 [connection signal="toggled" from="LevelBrowser/Settings/Control/Fullscreen/FullscreenTick/CheckBox" to="." method="_on_Fullscreen_toggled"]
 [connection signal="pressed" from="LevelBrowser/Levels/Level1/Button" to="." method="loadtest"]
 [connection signal="value_changed" from="LevelBrowser/ScrollBar" to="." method="_on_ScrollBar_value_changed"]
+[connection signal="finished" from="OpeningCutscene/VideoPlayer" to="." method="_on_OpeningCutscene_finished"]

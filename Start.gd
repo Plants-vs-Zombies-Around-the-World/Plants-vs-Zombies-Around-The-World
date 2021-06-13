@@ -232,6 +232,9 @@ func _on_Start_Button_pressed():
 			editedSave.store_line(JSON.print(save_data))
 			editedSave.close()
 			
+			$OpeningCutscene.show()
+			$OpeningCutscene/VideoPlayer.paused = false
+			
 		else:
 			$LevelBrowser.show()
 		
@@ -1007,6 +1010,14 @@ func _on_ScrollBar_value_changed(value):
 	$LevelBrowser/Levels.position.x = -int(value)
 
 func loadtest():
+	var file = File.new()
+	file.open("levelpath", File.WRITE)
+	file.store_string("Levels/SuburbiaLevel1.json")
+	file.close()
+	get_tree().change_scene("res://LevelRunner/LevelRunner.tscn")
+
+
+func _on_OpeningCutscene_finished():
 	var file = File.new()
 	file.open("levelpath", File.WRITE)
 	file.store_string("Levels/SuburbiaLevel1.json")
