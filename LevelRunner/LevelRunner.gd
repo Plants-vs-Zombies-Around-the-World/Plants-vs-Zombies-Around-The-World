@@ -11,6 +11,7 @@ var levelType
 var musicVol
 var sfxVol
 var fullscreen
+var pausable = true
 
 func _ready():
 	# read file
@@ -38,8 +39,9 @@ func _on_ExitLevelConfirmNo_pressed():
 
 # all functions from this point on are for settings
 func _on_SettingsButton_pressed():
-	$Level/Settings.show()
-	$PauseEffect.play()
+	if (pausable == true):
+		$Level/Settings.show()
+		$PauseEffect.play()
 
 func _on_SettingsButtonExit_pressed():
 	$Level/Settings.hide()
@@ -182,6 +184,7 @@ func _on_Fullscreen_toggled(fullscreenPressed):
 	editedSave.store_line(JSON.print(save_data))
 	editedSave.close()
 
+# for levels
 func _readLevelJson():
 	# read level file
 	var file = File.new()
@@ -211,5 +214,11 @@ func _readLevelJson():
 	# do advanced stuff depending on level type
 	if (data.result["ATWLevel"]["definition"]["type"] == "tutorialLevel" && save_data["data"][profileNum]["levelProgress"][0]["levels"][0]["finished"] == false):
 		print("hi")
+		pausable = false
 		$Level/AlertPanel.show()
-		$Level/Pause.hide()
+
+
+func _on_SkipTutorialButton_pressed():
+	pausable = true
+	$Level/AlertPanel.hide()
+	$ButtonSFX1.play()

@@ -316,7 +316,6 @@ margin_bottom = 22.0
 text = "No"
 
 [node name="AlertPanel" type="PopupPanel" parent="Level"]
-visible = true
 margin_left = 340.0
 margin_top = 144.0
 margin_right = 719.0
@@ -414,6 +413,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cover" type="ColorRect" parent="Level"]
+margin_right = 1056.0
+margin_bottom = 672.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Reward" type="Node2D" parent="."]
 visible = false
 
@@ -435,3 +442,4 @@ volume_db = -10.0
 [connection signal="pressed" from="Level/Settings/Control/ExitLevel/ExitLevelButton/Button" to="." method="_on_ExitLevelButton_pressed"]
 [connection signal="pressed" from="Level/LeaveConfirmation/Control/ExitConfirm/ExitConfirmYes/Button" to="." method="_on_ExitLevelConfirmYes_pressed"]
 [connection signal="pressed" from="Level/LeaveConfirmation/Control/ExitConfirm/ExitConfirmNo/Button" to="." method="_on_ExitLevelConfirmNo_pressed"]
+[connection signal="pressed" from="Level/AlertPanel/Control/AlertPanelButtonSkip/Button" to="." method="_on_SkipTutorialButton_pressed"]
