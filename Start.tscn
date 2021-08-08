@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://Assets/logo.png" type="Texture" id=1]
 [ext_resource path="res://Start.gd" type="Script" id=2]
@@ -12,125 +12,158 @@
 [ext_resource path="res://Assets/levelselect/level list.png" type="Texture" id=10]
 [ext_resource path="res://Assets/videos/pvz atw intro.ogv" type="VideoStream" id=11]
 [ext_resource path="res://Assets/ui/settings button unpressed.png" type="Texture" id=12]
-[ext_resource path="res://Roboto-Regular.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://Assets/Roboto-Regular.ttf" type="DynamicFontData" id=13]
 
-[sub_resource type="DynamicFont" id=1]
-font_data = ExtResource( 13 )
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Assets/Roboto-Regular.ttf"
 
 [sub_resource type="DynamicFont" id=2]
-size = 24
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 20
-font_data = ExtResource( 13 )
+size = 24
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 20
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 20
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=6]
 size = 20
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=7]
 size = 20
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=8]
-size = 24
-font_data = ExtResource( 13 )
+size = 20
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=9]
-size = 20
-font_data = ExtResource( 13 )
+size = 24
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=10]
 size = 20
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=11]
 size = 20
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=12]
-size = 24
-font_data = ExtResource( 13 )
+size = 20
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=13]
-size = 20
-font_data = ExtResource( 13 )
+size = 24
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=14]
-font_data = ExtResource( 13 )
+size = 20
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=15]
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=16]
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=17]
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=18]
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=19]
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=20]
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=21]
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=22]
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=23]
-size = 20
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=24]
 size = 20
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=25]
-size = 18
-font_data = ExtResource( 13 )
+size = 20
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=26]
 size = 18
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=27]
-font_data = ExtResource( 13 )
+size = 18
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=28]
-size = 24
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=29]
-font_data = ExtResource( 13 )
+size = 24
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=30]
-size = 20
-font_data = ExtResource( 13 )
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=31]
-size = 20
+size = 24
 font_data = ExtResource( 13 )
 
 [sub_resource type="DynamicFont" id=32]
 size = 20
 font_data = ExtResource( 13 )
 
-[sub_resource type="RectangleShape2D" id=33]
+[sub_resource type="DynamicFont" id=33]
+size = 20
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=34]
+size = 20
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=35]
+size = 20
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=36]
+size = 20
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=38]
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=39]
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=40]
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=41]
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=42]
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=43]
+font_data = ExtResource( 13 )
+
+[sub_resource type="RectangleShape2D" id=37]
 
 [node name="Start" type="Node2D"]
 script = ExtResource( 2 )
@@ -176,7 +209,7 @@ margin_left = 672.0
 margin_top = 732.0
 margin_right = 912.0
 margin_bottom = 828.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Exit"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -234,7 +267,7 @@ __meta__ = {
 margin_top = 2.0
 margin_right = 576.0
 margin_bottom = 31.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Settings"
 align = 1
@@ -261,7 +294,7 @@ __meta__ = {
 margin_top = 12.0
 margin_right = 96.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Music"
 align = 1
 valign = 1
@@ -302,7 +335,7 @@ __meta__ = {
 margin_top = 12.0
 margin_right = 96.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "SFX"
 align = 1
 valign = 1
@@ -343,7 +376,7 @@ __meta__ = {
 margin_top = 12.0
 margin_right = 96.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Fullscreen"
 align = 1
 valign = 1
@@ -385,7 +418,7 @@ __meta__ = {
 margin_top = 21.0
 margin_right = 144.0
 margin_bottom = 51.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 text = "Credits"
 
 [node name="SettingsDiscord" type="VBoxContainer" parent="MainMenu/Settings/Control/SettingsButtons"]
@@ -406,7 +439,7 @@ __meta__ = {
 margin_top = 20.0
 margin_right = 144.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 text = "Discord Server"
 
 [node name="ExitConfirmation" type="PopupPanel" parent="MainMenu"]
@@ -441,7 +474,7 @@ __meta__ = {
 margin_top = 9.0
 margin_right = 480.0
 margin_bottom = 38.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Warning"
 align = 1
@@ -461,7 +494,7 @@ __meta__ = {
 margin_top = 12.0
 margin_right = 384.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
 text = "Are you sure that you want to exit?"
 align = 1
 valign = 1
@@ -487,7 +520,7 @@ __meta__ = {
 margin_top = 9.0
 margin_right = 72.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "Yes"
 
 [node name="ExitConfirmNo" type="VBoxContainer" parent="MainMenu/ExitConfirmation/Control/ExitConfirm"]
@@ -503,7 +536,7 @@ __meta__ = {
 margin_top = 9.0
 margin_right = 72.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 text = "No"
 
 [node name="DeleteConfirmation" type="PopupPanel" parent="MainMenu"]
@@ -632,7 +665,7 @@ __meta__ = {
 margin_left = 24.0
 margin_right = 48.0
 margin_bottom = 48.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "x"
 
 [node name="ProfileLabel" type="VBoxContainer" parent="MainMenu/ProfilePanel/Control"]
@@ -649,7 +682,7 @@ __meta__ = {
 margin_top = 12.0
 margin_right = 552.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Profiles"
 align = 1
@@ -678,7 +711,7 @@ __meta__ = {
 margin_top = 11.0
 margin_right = 336.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 15 )
 toggle_mode = true
 text = "(Player One)"
 
@@ -696,7 +729,7 @@ __meta__ = {
 margin_top = 11.0
 margin_right = 336.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 16 )
 toggle_mode = true
 text = "(Player Two)"
 
@@ -714,7 +747,7 @@ __meta__ = {
 margin_top = 11.0
 margin_right = 336.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 17 )
 toggle_mode = true
 text = "(Player Three)"
 
@@ -732,7 +765,7 @@ __meta__ = {
 margin_top = 11.0
 margin_right = 336.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 toggle_mode = true
 text = "(Player Four)"
 
@@ -750,7 +783,7 @@ __meta__ = {
 margin_top = 11.0
 margin_right = 336.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 19 )
 toggle_mode = true
 text = "(Player Five)"
 
@@ -786,7 +819,7 @@ __meta__ = {
 margin_top = 11.0
 margin_right = 120.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 20 )
 text = "Create Profile"
 
 [node name="ProfileSwitch" type="VBoxContainer" parent="MainMenu/ProfilePanel/Control"]
@@ -803,7 +836,7 @@ __meta__ = {
 margin_top = 11.0
 margin_right = 120.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 20 )
+custom_fonts/font = SubResource( 21 )
 disabled = true
 action_mode = 0
 text = "Switch Profile"
@@ -822,7 +855,7 @@ __meta__ = {
 margin_top = 11.0
 margin_right = 108.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 21 )
+custom_fonts/font = SubResource( 22 )
 disabled = true
 text = "Edit Profile"
 
@@ -840,7 +873,7 @@ __meta__ = {
 margin_top = 11.0
 margin_right = 120.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 22 )
+custom_fonts/font = SubResource( 23 )
 disabled = true
 text = "Delete Profile"
 
@@ -876,7 +909,7 @@ __meta__ = {
 margin_left = 11.0
 margin_right = 36.0
 margin_bottom = 48.0
-custom_fonts/font = SubResource( 23 )
+custom_fonts/font = SubResource( 24 )
 text = "X"
 
 [node name="ProfileMakerHeader" type="VBoxContainer" parent="MainMenu/NewProfileMaker/Control"]
@@ -893,7 +926,7 @@ __meta__ = {
 margin_top = 6.0
 margin_right = 504.0
 margin_bottom = 30.0
-custom_fonts/font = SubResource( 24 )
+custom_fonts/font = SubResource( 25 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Enter Your Name"
 align = 1
@@ -913,7 +946,7 @@ __meta__ = {
 margin_top = 7.0
 margin_right = 504.0
 margin_bottom = 29.0
-custom_fonts/font = SubResource( 25 )
+custom_fonts/font = SubResource( 26 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
@@ -923,7 +956,7 @@ margin_left = 32.0
 margin_top = 92.0
 margin_right = 536.0
 margin_bottom = 152.0
-custom_fonts/font = SubResource( 26 )
+custom_fonts/font = SubResource( 27 )
 align = 1
 max_length = 20
 __meta__ = {
@@ -935,7 +968,7 @@ margin_left = 212.0
 margin_top = 200.0
 margin_right = 356.0
 margin_bottom = 248.0
-custom_fonts/font = SubResource( 27 )
+custom_fonts/font = SubResource( 28 )
 text = "Create Profile"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -961,7 +994,7 @@ margin_bottom = 96.0
 [node name="Label" type="Label" parent="MainMenu/ChangeProfile/ProfileName"]
 margin_right = 288.0
 margin_bottom = 96.0
-custom_fonts/font = SubResource( 28 )
+custom_fonts/font = SubResource( 29 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "New Player"
@@ -979,7 +1012,7 @@ margin_bottom = 120.0
 [node name="Button" type="Button" parent="MainMenu/ChangeProfile/ProfileButton"]
 margin_right = 288.0
 margin_bottom = 24.0
-custom_fonts/font = SubResource( 29 )
+custom_fonts/font = SubResource( 30 )
 text = "If this is not you, click here"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -989,22 +1022,23 @@ __meta__ = {
 visible = false
 
 [node name="Background" type="Sprite" parent="Credits"]
-position = Vector2( 528, 336 )
+position = Vector2( 960, 540 )
 texture = ExtResource( 4 )
 
 [node name="CreditsBackdrop" type="ColorRect" parent="Credits"]
-margin_right = 1056.0
-margin_bottom = 672.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 color = Color( 0.501961, 0.501961, 0.501961, 0.501961 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CreditsLabel" type="Label" parent="Credits"]
-margin_left = 480.0
-margin_top = 144.0
-margin_right = 576.0
-margin_bottom = 168.0
+margin_left = 816.0
+margin_top = 96.0
+margin_right = 1104.0
+margin_bottom = 132.0
+custom_fonts/font = SubResource( 31 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Credits"
 align = 1
@@ -1014,10 +1048,11 @@ __meta__ = {
 }
 
 [node name="CreditsText" type="Label" parent="Credits"]
-margin_left = 288.0
-margin_top = 168.0
-margin_right = 767.0
-margin_bottom = 312.0
+margin_left = 624.0
+margin_top = 144.0
+margin_right = 1296.0
+margin_bottom = 768.0
+custom_fonts/font = SubResource( 32 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Original IP Created by PopCap
 Original Concept: 175Haystacks
@@ -1032,10 +1067,11 @@ __meta__ = {
 }
 
 [node name="ReturnButton" type="Button" parent="Credits"]
-margin_left = 445.0
-margin_top = 564.0
-margin_right = 611.0
-margin_bottom = 600.0
+margin_left = 852.0
+margin_top = 816.0
+margin_right = 1068.0
+margin_bottom = 899.0
+custom_fonts/font = SubResource( 33 )
 text = "Return to Main Menu"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1053,7 +1089,7 @@ margin_left = 48.0
 margin_top = 36.0
 margin_right = 192.0
 margin_bottom = 96.0
-custom_fonts/font = SubResource( 30 )
+custom_fonts/font = SubResource( 34 )
 text = "Main Menu"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1064,18 +1100,20 @@ margin_left = 240.0
 margin_top = 36.0
 margin_right = 384.0
 margin_bottom = 96.0
-custom_fonts/font = SubResource( 31 )
+custom_fonts/font = SubResource( 35 )
 text = "Settings"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AlmanacButton" type="Button" parent="LevelBrowser"]
+visible = false
 margin_left = 432.0
 margin_top = 36.0
 margin_right = 576.0
 margin_bottom = 96.0
-custom_fonts/font = SubResource( 32 )
+custom_fonts/font = SubResource( 36 )
+disabled = true
 text = "Almanac"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1133,7 +1171,7 @@ __meta__ = {
 margin_top = 3.0
 margin_right = 576.0
 margin_bottom = 32.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Settings"
 align = 1
@@ -1160,7 +1198,7 @@ __meta__ = {
 margin_top = 12.0
 margin_right = 96.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Music"
 align = 1
 valign = 1
@@ -1201,7 +1239,7 @@ __meta__ = {
 margin_top = 12.0
 margin_right = 96.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "SFX"
 align = 1
 valign = 1
@@ -1242,7 +1280,7 @@ __meta__ = {
 margin_top = 12.0
 margin_right = 96.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Fullscreen"
 align = 1
 valign = 1
@@ -1284,7 +1322,7 @@ __meta__ = {
 margin_top = 21.0
 margin_right = 144.0
 margin_bottom = 51.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 text = "Credits"
 
 [node name="SettingsDiscord" type="VBoxContainer" parent="LevelBrowser/Settings/Control/SettingsButtons"]
@@ -1305,7 +1343,7 @@ __meta__ = {
 margin_top = 20.0
 margin_right = 144.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 text = "Discord Server"
 
 [node name="Levels" type="Area2D" parent="LevelBrowser"]
@@ -1322,6 +1360,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
+custom_fonts/font = SubResource( 38 )
 text = "Level 1"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1344,6 +1383,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
+custom_fonts/font = SubResource( 39 )
 text = "Level 2"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1366,6 +1406,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
+custom_fonts/font = SubResource( 40 )
 text = "Level 3"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1382,6 +1423,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
+custom_fonts/font = SubResource( 41 )
 text = "Level 4"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1404,6 +1446,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
+custom_fonts/font = SubResource( 42 )
 text = "Level 5"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1426,6 +1469,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
+custom_fonts/font = SubResource( 43 )
 text = "Level 6"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1594,7 +1638,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelBrowser/Levels"]
-shape = SubResource( 33 )
+shape = SubResource( 37 )
 
 [node name="ScrollBar" type="HScrollBar" parent="LevelBrowser"]
 margin_top = 1068.0

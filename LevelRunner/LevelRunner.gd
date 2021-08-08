@@ -214,14 +214,19 @@ func _readLevelJson():
 	# do advanced stuff depending on level type
 	if (data.result["ATWLevel"]["definition"]["type"] == "tutorialLevel" && save_data["data"][profileNum]["levelProgress"][0]["levels"][0]["finished"] == false):
 		# for tutorial
-		pausable = false
+		$Level/Pause.hide()
 		$Level/AlertPanel.show()
 		$Level/AlertPanel/AnimationPlayer.play("fade in")
 		$Level/Cover/AnimationPlayer.play("fade in")
 
 func _on_SkipTutorialButton_pressed():
-	pausable = true
 	$Level/Cover/AnimationPlayer.play("fade out")
 	$Level/AlertPanel/AnimationPlayer.play("fade out")
 	$Level/AlertPanel.hide()
+	$Level/Pause.show()
 	$ButtonSFX1.play()
+
+
+func _on_CoverFadeOut(anim_name):
+	if (anim_name == "fade out"):
+		$Level/Cover.hide()
