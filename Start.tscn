@@ -145,6 +145,9 @@ font_data = SubResource( 1 )
 size = 20
 font_data = SubResource( 1 )
 
+[sub_resource type="DynamicFont" id=37]
+font_data = ExtResource( 13 )
+
 [sub_resource type="DynamicFont" id=38]
 font_data = ExtResource( 13 )
 
@@ -160,10 +163,7 @@ font_data = ExtResource( 13 )
 [sub_resource type="DynamicFont" id=42]
 font_data = ExtResource( 13 )
 
-[sub_resource type="DynamicFont" id=43]
-font_data = ExtResource( 13 )
-
-[sub_resource type="RectangleShape2D" id=37]
+[sub_resource type="RectangleShape2D" id=43]
 
 [node name="Start" type="Node2D"]
 script = ExtResource( 2 )
@@ -1360,7 +1360,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
-custom_fonts/font = SubResource( 38 )
+custom_fonts/font = SubResource( 37 )
 text = "Level 1"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1383,7 +1383,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
-custom_fonts/font = SubResource( 39 )
+custom_fonts/font = SubResource( 38 )
 text = "Level 2"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1406,7 +1406,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
-custom_fonts/font = SubResource( 40 )
+custom_fonts/font = SubResource( 39 )
 text = "Level 3"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1423,7 +1423,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
-custom_fonts/font = SubResource( 41 )
+custom_fonts/font = SubResource( 40 )
 text = "Level 4"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1446,7 +1446,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
-custom_fonts/font = SubResource( 42 )
+custom_fonts/font = SubResource( 41 )
 text = "Level 5"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1469,7 +1469,7 @@ margin_left = -36.0
 margin_top = -48.0
 margin_right = 33.0
 margin_bottom = -28.0
-custom_fonts/font = SubResource( 43 )
+custom_fonts/font = SubResource( 42 )
 text = "Level 6"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1638,7 +1638,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelBrowser/Levels"]
-shape = SubResource( 37 )
+shape = SubResource( 43 )
 
 [node name="ScrollBar" type="HScrollBar" parent="LevelBrowser"]
 margin_top = 1068.0
